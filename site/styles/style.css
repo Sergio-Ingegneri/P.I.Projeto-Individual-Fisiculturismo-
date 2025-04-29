@@ -1,0 +1,56 @@
+/* Header.css */
+
+*{
+    margin: 0%;
+    padding: 0%;
+}
+
+.header{
+    height: 55px;
+    border-bottom:5px solid #000000;
+    background-color: #004B90;
+}
+
+.container{
+    display: flex;
+    width: 80%;  /* fazendo as margens laterais para que o texto n pegue as bordas*/
+    margin: auto;
+}
+
+.container #logo_header{
+    display: flex;
+    max-width: 50px;
+}
+
+.header .container{
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.header .titulo{
+    display: flex;
+    margin-left: -200px;
+    font-family:'Times New Roman';
+}
+
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    gap: 20px;
+}
+
+.header a{
+    text-decoration: none;
+    color: #000000;
+    background-color: #D9D9D9;
+    padding: 2px;
+    border-radius: 3px;
+    
+}
+
+.agora{
+    font-weight: 800;
+}
