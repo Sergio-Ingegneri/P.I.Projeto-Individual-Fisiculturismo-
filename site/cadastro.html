@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>BodyPedia | Cadastro TMB</title>
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="icon" href="assets/header_logo.png" />
+</head>
+
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="container">
+      <div class="imagem">
+        <img src="assets/header_logo.png" id="logo_header" alt="BodyPedia logo">
+        <h1 class="titulo">BodyPedia</h1>
+      </div>
+      <ul class="navbar">
+        <li><a href="index.html">Home 🏠</a></li>
+        <li><a href="fisiculturistas.html">Fisiculturistas 🏋️‍♀️</a></li>
+        <li class="agora"><a href="login.html">TMB 📊</a></li>
+        <li><a href="blog.html">Blog 📖</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Banner -->
+  <div class="banner">
+    <div class="container">
+      <p>Treino, mente e rotina — uma jornada completa pelo fisiculturismo</p>
+    </div>
+  </div>
+
+  <!-- CADASTRO -->
+  <div class="cadastro-container">
+    <div class="cadastro-card">
+      <h2>Cadastre-se para acessar a Calculadora de TMB</h2>
+
+      <form action="TMB.html" method="get">
+        <div class="selecao">
+          <label for="nome">Nome:</label>
+          <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
+        </div>
+        <div class="selecao">
+          <label for="email">E-mail:</label>
+          <input type="email" id="email" name="email" placeholder="seu@exemplo.com" required>
+        </div>
+        <div class="selecao">
+          <label for="senha">Senha:</label>
+          <input type="password" id="senha" name="senha" placeholder="Crie uma senha" required>
+        </div>
+        <div class="selecao">
+          <label for="confirma-senha">Confirme a senha:</label>
+          <input type="password" id="confirma-senha" name="confirma-senha" placeholder="Repita sua senha" required>
+        </div>
+        <button type="submit">Cadastrar</button>
+      </form>
+
+      <p class="chamada">
+        Já tem conta? <a href="login.html">Faça login aqui!</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="container">
+      <h4>Sergio Ingegneri © 2025 SpTech 1CCOB</h4>
+    </div>
+  </div>
+</body>
+
+</html>

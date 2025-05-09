@@ -1,56 +1,698 @@
-/* Header.css */
+/* Header */
 
-*{
+* {
     margin: 0%;
     padding: 0%;
 }
 
-.header{
-    height: 55px;
-    border-bottom:5px solid #000000;
-    background-color: #004B90;
+body {
+    background-color: #666666;
+    color: #f2f2ec;
+    font-family: 'Times New Roman';
 }
 
-.container{
+.header {
+    height: 55px;
+    border-bottom: 5px solid #1c1c1c;
+    background-color: #1a2a3a;
+}
+
+.container {
     display: flex;
-    width: 80%;  /* fazendo as margens laterais para que o texto n pegue as bordas*/
+    width: 80%;
     margin: auto;
 }
 
-.container #logo_header{
+.container #logo_header {
     display: flex;
     max-width: 50px;
 }
 
-.header .container{
+.header .container {
+    display: flex;
     justify-content: space-between;
     align-items: center;
     height: 100%;
+    font-family: 'Times New Roman';
 }
 
-.header .titulo{
+.header .imagem {
     display: flex;
-    margin-left: -200px;
-    font-family:'Times New Roman';
+    flex-direction: row;
+    align-items: center;
 }
 
-.navbar{
+.navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     list-style: none;
+    gap: 30px;
+}
+
+.navbar li {
+    text-align: center;
+    align-items: center;
+}
+
+.header a {
+    background-color: #f2f2ec;
+    text-decoration: none;
+    color: #1a2a3a;
+    border-radius: 3px;
+    padding: 5px 10px;
+}
+
+.agora a {
+    background-color: #f0b429;
+    color: #1a2a3a;
+}
+
+/* Banner */
+
+.banner {
+    height: 50px;
+    background-color: #1a2a3a;
+}
+
+.banner .container {
+    display: flex;
+    align-items: center;
+    font-family: 'Times New Roman';
+    font-size: 24px;
+    text-align: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+/* Home */
+
+.mimagem-arnold {
+    width: 100%;
+}
+
+.imagem-arnold img {
+    width: 100%;
+    max-height: 590px;
+    object-fit: cover;
+    display: block;
+}
+
+.correlacao {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    font-family: 'Times New Roman';
+    background-color: #f2f2ec;
+    color: #1a1a1a;
+}
+
+.correlacao .container {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+}
+
+.correlacao .container h2 {
+    font-family: fantasy;
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.correlacao .container p {
+    font-family: Arial;
+    font-size: 17px;
+    text-align: justify;
+    margin-bottom: 12px;
+    line-height: 1.6;
+    max-width: 800px;
+}
+
+.timeline {
+    display: flex;
+    width: 80%;
+    margin: 40px auto;
     gap: 20px;
 }
 
-.header a{
-    text-decoration: none;
-    color: #000000;
-    background-color: #D9D9D9;
-    padding: 2px;
-    border-radius: 3px;
-    
+.timeline .texto {
+    flex: none;
+    width: 50%;
+    height: 400px;
+    padding: 16px;
+    background-color: #e8e2c7;
+    border: 2px solid #f0b429;
+    border-radius: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
-.agora{
-    font-weight: 800;
+.timeline .texto h3 {
+    font-family: 'Times New Roman';
+    text-align: center;
+    background-color: #1a2a3a;
+    color: #f0b429;
+    padding: 8px 16px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    position: relative;
+    /* Necessário para o cálculo funcionar bem */
+    margin: -16px -16px 12px -16px;
+    /* <<< Puxa para cima (-16px), para os lados (-16px) e dá margem embaixo (12px) */
+    width: calc(100% + 32px);
+    /* <<< Compensa as margens laterais negativas (16px + 16px) */
+}
+
+.timeline .texto p {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    color: black;
+    overflow: auto;
+    width: 100%;
+    box-sizing: border-box;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: normal;
+    text-align: justify;
+}
+
+.timeline .imagem {
+    flex: none;
+    width: 50%;
+    height: 400px;
+    overflow: hidden;
+    border: 2px solid #f0b429;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.timeline .imagem img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Depoimentos */
+
+.depoimentos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    background-color: transparent;
+}
+
+.depoimentos-header {
+    width: 100%;
+    background-color: #1a2a3a;
+    text-align: center;
+    padding: 16px 0;
+}
+
+.depoimentos-header h2 {
+    font-family: 'Times New Roman';
+    font-size: 28px;
+    margin: 0;
+    color: #f2f2ec;
+}
+
+.depoimentos-list {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px 0;
+}
+
+.depoimento-card details {
+    background-color: #e8e2c7;
+    border: 2px solid #f0b429;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.depoimento-card summary {
+    padding: 12px 16px;
+    background-color: #1a2a3a;
+    color: #f0b429;
+    font-family: 'Times New Roman';
+    font-size: 18px;
+    cursor: pointer;
+    list-style: none;
+}
+
+.depoimento-card p {
+    padding: 12px 16px;
+    margin: 0;
+    font-family: Arial;
+    font-size: 14px;
+    color: #1a1a1a;
+    background-color: #e8e2c7;
+}
+
+/* Footer */
+
+.footer {
+    height: 55px;
+    border-top: 5px solid #1c1c1c;
+    background-color: #1a2a3a;
+}
+
+.footer .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-family: 'Times New Roman';
+}
+
+.footer h4 {
+    color: #f2f2ec;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Fisiculturistas */
+
+.grid-fisiculturistas {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 80%;
+    margin: 40px auto;
+}
+
+.atleta {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+}
+
+.atleta .foto {
+    flex: 1;
+    max-width: 400px;
+    min-height: 320px;
+    border: 2px solid #f0b429;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.atleta .foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.atleta .info {
+    flex: 2;
+    background-color: #e8e2c7;
+    border: 2px solid #f0b429;
+    border-radius: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.atleta .info h2 {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    margin: auto;
+    padding: 8px 16px;
+    text-align: center;
+    font-family: 'Times New Roman';
+    background-color: #1a2a3a;
+    color: #f0b429;
+    border-radius: 20px;
+}
+
+.atleta .info p {
+    margin: auto;
+    padding: 0 16px 16px;
+    font-size: 18px;
+    color: black;
+    overflow: auto;
+    width: 100%;
+    box-sizing: border-box;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: normal;
+    text-align: justify;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+/* Calculadora */
+
+.container-tmb {
+    padding: 40px 10%;
+    background-color: #666666;
+}
+
+.calc-card {
+    background-color: #e8e2c7;
+    width: 100%;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.calc-card h2 {
+    color: #1a2a3a;
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: 'Times New Roman';
+    font-size: 28px;
+    text-decoration: underline;
+}
+
+.selecao {
+    margin-bottom: 25px;
+}
+
+.selecao label {
+    display: block;
+    margin-bottom: 12px;
+    color: #1a2a3a;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.radios {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 10px 0;
+}
+
+.radios label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    background-color: #f2f2ec;
+    border-radius: 8px;
+}
+
+.radios label:hover {
+    background-color: #e0dac0;
+}
+
+.biotipo-info {
+    background-color: #f2f2ec;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.biotipo-info p {
+    color: #1a2a3a;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.biotipo-info ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.biotipo-info li {
+    color: #1a2a3a;
+    margin-bottom: 8px;
+    padding: 8px;
+    background-color: #e8e2c7;
+    border-radius: 4px;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #f2f2ec;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #1a2a3a;
+}
+
+button {
+    background-color: #1a2a3a;
+    color: #f0b429;
+    padding: 15px 0;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.resultado-box {
+    margin-top: 25px;
+    padding: 20px;
+    background-color: #1a2a3a;
+    border-radius: 8px;
+    color: #f0b429;
+    text-align: center;
+    font-size: 20px;
+    display: none;
+}
+
+.calculo-info {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #1a2a3a;
+    border-radius: 8px;
+    color: #f0b429;
+    text-align: center;
+}
+
+.calculo-info h3 {
+    color: #f0b429;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.calculo-info p {
+    margin: 12px 0;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+input[type="radio"] {
+    accent-color: #1a2a3a;
+    transform: scale(1.2);
+}
+
+/* Blog */
+
+.faq-blog {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    background-color: transparent;
+}
+
+.faq-header-blog h2 {
+    font-size: 36px;
+    font-family: 'Times New Roman';
+    color: #f2f2ec;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    letter-spacing: 2px;
+    margin: 0;
+    border-bottom: 4px solid #f0b429;
+}
+
+.faq-header-blog {
+    background-color: transparent;
+    padding: 24px 0;
+}
+
+
+.faq-list-blog {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px 0;
+}
+
+.faq-list-blog.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 0;
+}
+
+
+.faq-card-blog details {
+    background-color: #e8e2c7;
+    border: 2px solid #f0b429;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.faq-card-blog summary {
+    padding: 12px 16px;
+    background-color: #1a2a3a;
+    color: #f0b429;
+    font-family: 'Times New Roman';
+    font-size: 18px;
+    cursor: pointer;
+    list-style: none;
+}
+
+.faq-card-blog p,
+.faq-card-blog h2 {
+    padding: 12px 16px;
+    margin: 0;
+    font-family: Arial;
+    font-size: 14px;
+    color: #1a1a1a;
+    background-color: #e8e2c7;
+    text-align: justify;
+}
+
+/* Login e Cadastro */
+
+.login-container,
+.cadastro-container {
+    padding: 40px 10%;
+    background-color: #666666;
+}
+
+.login-container .login-card,
+.cadastro-container .cadastro-card {
+    background-color: #e8e2c7;
+    width: 100%;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.login-card h2,
+.cadastro-card h2 {
+    color: #1a2a3a;
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: 'Times New Roman';
+    font-size: 28px;
+    text-decoration: underline;
+}
+
+.login-card p,
+.cadastro-card p {
+    color: #000000;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    font-size: 20px;
+    text-align: justify;
+}
+
+.login-card .intro-text {
+    font-weight: 600;
+    text-align: center;
+}
+
+.login-card p a,
+.cadastro-card p a {
+    color: #f0b429;
+    text-decoration: none;
+}
+
+.login-card p a:hover,
+.cadastro-card p a:hover {
+    text-decoration: underline;
+}
+
+.login-card ul,
+.cadastro-card ul {
+    list-style-type: disc;
+    margin: 10px 0 20px 20px;
+    color: #1a1a1a;
+    font-size: 20px;
+}
+
+.login-card ul li,
+.cadastro-card ul li {
+    margin-bottom: 8px;
+}
+
+.login-card input[type="text"],
+.login-card input[type="password"],
+.cadastro-card input[type="text"],
+.cadastro-card input[type="email"],
+.cadastro-card input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #f2f2ec;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #1a2a3a;
+    margin-top: 8px;
+    box-sizing: border-box;
+}
+
+.login-card .selecao,
+.cadastro-card .selecao {
+    margin-bottom: 25px;
+}
+
+.login-card button,
+.cadastro-card button {
+    background-color: #1a2a3a;
+    color: #f0b429;
+    padding: 15px 0;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.login-card button:hover,
+.cadastro-card button:hover {
+    background-color: #16212a;
+}
+
+.login-card .chamada,
+.cadastro-card .chamada {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.login-card .chamada a,
+.cadastro-card .chamada a {
+    color: #f0b429;
+    text-decoration: none;
+}
+
+.login-card .chamada a:hover,
+.cadastro-card .chamada a:hover {
+    text-decoration: underline;
 }

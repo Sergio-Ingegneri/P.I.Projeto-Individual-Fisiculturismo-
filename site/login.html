@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>BodyPedia | Login TMB</title>
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="icon" href="assets/header_logo.png" />
+</head>
+<body>
+  <!-- Header (mesmo de sempre) -->
+  <div class="header">
+    <div class="container">
+      <div class="imagem">
+        <img src="assets/header_logo.png" id="logo_header" alt="BodyPedia logo">
+        <h1 class="titulo">BodyPedia</h1>
+      </div>
+      <ul class="navbar">
+        <li><a href="index.html">Home 🏠</a></li>
+        <li><a href="fisiculturistas.html">Fisiculturistas 🏋️‍♀️</a></li>
+        <li class="agora"><a href="login.html">TMB 📊</a></li>
+        <li><a href="blog.html">Blog 📖</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Banner -->
+  <div class="banner">
+    <div class="container">
+      <p>Treino, mente e rotina — uma jornada completa pelo fisiculturismo</p>
+    </div>
+  </div>
+
+  <!-- LOGIN -->
+  <div class="login-container">
+    <div class="login-card">
+      <h2>O que é a Taxa Metabólica Basal (TMB)?</h2>
+      <p>
+        A Taxa Metabólica Basal é a quantidade mínima de calorias que seu corpo precisa para manter funções vitais em repouso,
+        como respiração, circulação sanguínea e controle da temperatura. Conhecer sua TMB ajuda a definir metas de ingestão
+        calórica diárias de forma personalizada.
+      </p>
+
+      <h2>O que são calorias?</h2>
+      <p>
+        Calorias são unidades de energia que obtemos dos alimentos. Quando ingerimos mais calorias do que gastamos,
+        o excesso é armazenado como gordura. Se consumimos menos calorias do que gastamos, o corpo utiliza reservas
+        de energia, promovendo a perda de peso.
+      </p>
+
+      <h2>Por que é importante saber sua TMB?</h2>
+      <p>
+        Saber sua TMB permite ajustar sua dieta para:
+        <ul>
+          <li><strong>Manter peso:</strong> Consumir aproximadamente o número de calorias da sua TMB.</li>
+          <li><strong>Perder peso:</strong> Criar um déficit calórico moderado.</li>
+          <li><strong>Ganhar massa:</strong> Aumentar calorias de forma controlada.</li>
+        </ul>
+      </p>
+
+      <p class="intro-text">
+        Cadastre-se para ter acesso completo à nossa calculadora e obter recomendações personalizadas!
+      </p>
+
+      <form action="TMB.html" method="get">
+        <div class="selecao">
+          <label for="login">Login:</label>
+          <input type="text" id="login" name="login" placeholder="Digite seu usuário" required>
+        </div>
+        <div class="selecao">
+          <label for="senha">Senha:</label>
+          <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+        </div>
+        <button type="submit">Entrar</button>
+      </form>
+
+      <p class="chamada">
+        Ainda não tem conta? <a href="cadastro.html">Cadastre-se aqui!</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="container">
+      <h4>Sergio Ingegneri © 2025 SpTech 1CCOB</h4>
+    </div>
+  </div>
+</body>
+</html>
