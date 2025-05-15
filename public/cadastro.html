@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BodyPedia | Cadastro</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="../public/assets/imgs/header_logo.png" />
+  <script src="./js/sessao.js"></script>
+</head>
+
+<body onload="listar()">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="container">
+      <div class="imagem">
+        <img src="../public/assets/imgs/header_logo.png" id="logo_header" alt="Logo BodyPedia">
+        <h1 class="titulo">BodyPedia</h1>
+      </div>
+      <ul class="navbar">
+        <li><a href="index.html">Home 🏠</a></li>
+        <li><a href="fisiculturistas.html">Fisiculturistas 🏋️‍♀️</a></li>
+        <li><a href="infoTMB.html">TMB 📊</a></li>
+        <li class="agora"><a href="#">Blog 📖</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Banner -->
+  <div class="banner">
+    <div class="container">
+      <p>Treino, mente e rotina — uma jornada completa pelo fisiculturismo</p>
+    </div>
+  </div>
+
+  <!-- Cadastro -->
+  <div class="cadastro-container login">
+    <div class="alerta_erro">
+      <div class="card_erro" id="cardErro">
+        <span id="mensagem_erro"></span>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="cadastro-card card card-cadastro">
+        <h2>Bem-vindo!</h2>
+        <div class="formulario">
+          <!-- CAMPO OCULTO: código de ativação -->
+          <input id="codigo_input" type="hidden" value="PUBLIC" />
+
+          <div class="campo">
+            <span>Nome:</span>
+            <input id="nome_input" type="text" placeholder="Seu nome" />
+          </div>
+          <div class="campo">
+            <span>CPF:</span>
+            <input id="cpf_input" type="text" placeholder="CPF" />
+          </div>
+          <div class="campo">
+            <span>E-mail:</span>
+            <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
+          </div>
+          <div class="campo">
+            <span>Senha:</span>
+            <input id="senha_input" type="password" placeholder="******" />
+          </div>
+          <div class="campo">
+            <span>Confirmação da senha:</span>
+            <input id="confirmacao_senha_input" type="password" placeholder="******" />
+          </div>
+          <button class="botao" onclick="cadastrar()">Cadastrar</button>
+        </div>
+
+        <div id="div_aguardar" class="loading-div"></div>
+        <div id="div_erros_login"></div>
+
+        <p class="chamada">Já tem conta? <a href="login.html">Faça login aqui!</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="container">
+      <h4>Sergio Ingegneri © 2025 SpTech 1CCOB</h4>
+    </div>
+  </div>
+
+  <!-- Script original WebDataVis mantido -->
+  <script>
+    let listaEmpresasCadastradas = [];
+
+    function cadastrar() {
+      var nomeVar = nome_input.value;
+      var cpfVar = cpf_input.value;
+      var emailVar = email_input.value;
+      var senhaVar = senha_input.value;
+      var confirmacaoSenhaVar = confirmacao_senha_input.value;
+      var codigoVar = codigo_input.value;
+      var idEmpresaVincular;
+
+      if (
+        nomeVar == "" || emailVar == "" || senhaVar == "" ||
+        confirmacaoSenhaVar == "" || codigoVar == "" || cpfVar == ""
+      ) {
+        cardErro.style.display = "block";
+        mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+        finalizarAguardar();
+        return false;
+      } else {
+        setInterval(sumirMensagem, 5000);
+      }
+
+      for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
+        if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
+          idEmpresaVincular = listaEmpresasCadastradas[i].id;
+          console.log("Código de ativação válido.");
+          break;
+        }
+      }
+
+      fetch("/usuarios/cadastrar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nomeServer: nomeVar,
+          emailServer: emailVar,
+          senhaServer: senhaVar,
+          cpfServer: cpfVar,
+          idEmpresaVincularServer: idEmpresaVincular
+        })
+      }).then(function (resposta) {
+        if (resposta.ok) {
+          cardErro.style.display = "block";
+          mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+          setTimeout(() => { window.location = "quiz.html"; }, 2000);
+          limparFormulario();
+          finalizarAguardar();
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        finalizarAguardar();
+      });
+      return false;
+    }
+
+    function listar() {
+      fetch("/empresas/listar").then(res => res.json()).then(empresas => {
+        empresas.forEach(emp => listaEmpresasCadastradas.push(emp));
+      }).catch(resposta => console.log(`#ERRO: ${resposta}`));
+    }
+
+    function sumirMensagem() {
+      cardErro.style.display = "none";
+    }
+  </script>
+</body>
+
+</html>
