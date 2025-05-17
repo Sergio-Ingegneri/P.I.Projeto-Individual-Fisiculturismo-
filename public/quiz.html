@@ -99,46 +99,108 @@
 
     <script>
         const listaDeQuestoes = [
+            //  Treinamento
             {
-                pergunta: "O que é BodyPedia?",
-                alternativaA: "Uma enciclopédia de treinamentos",
-                alternativaB: "Uma rede social fitness",
-                alternativaC: "Um blog de receitas saudáveis",
-                alternativaD: "", // Opção D vazia, pois a pergunta original tinha 3 opções
-                alternativaCorreta: "alternativaA" // !!! ATUALIZE PARA A RESPOSTA CORRETA (ex: "alternativaB") !!!
+                pergunta: "Qual o foco do método Heavy Duty?",
+                alternativaA: "Volume alto de treino",
+                alternativaB: "Repetições explosivas e curtas",
+                alternativaC: "Poucas séries até a falha total",
+                alternativaD: "Treino com descanso ativo",
+                alternativaCorreta: "alternativaC"
             },
             {
-                pergunta: "TETSTSTTSTSTGAK?",
-                alternativaA: "AFKLFASL",
-                alternativaB: "FSAKMFASL",
-                alternativaC: "AFBHKFASBKFSA",
-                alternativaD: "",
-                alternativaCorreta: "alternativaA" // !!! ATUALIZE PARA A RESPOSTA CORRETA !!!
+                pergunta: "O que caracteriza um treino com base na biomecânica correta?",
+                alternativaA: "Realizar mais repetições que o normal",
+                alternativaB: "Executar os movimentos respeitando ângulos e alavancas do corpo",
+                alternativaC: "Treinar com máxima velocidade sempre",
+                alternativaD: "Utilizar apenas o peso corporal",
+                alternativaCorreta: "alternativaB"
             },
             {
-                pergunta: "Qual é o método Heavy Duty?",
-                alternativaA: "Treino de alta intensidade e poucas repetições",
-                alternativaB: "Treino de resistência cardiovascular",
-                alternativaC: "Treino de alongamento",
-                alternativaD: "",
-                alternativaCorreta: "alternativaA" // !!! ATUALIZE PARA A RESPOSTA CORRETA !!!
+                pergunta: "Por que o descanso entre os treinos é essencial para a evolução?",
+                alternativaA: "Evita o ganho de gordura",
+                alternativaB: "Reduz a fome após o treino",
+                alternativaC: "É quando ocorre a recuperação e o crescimento muscular",
+                alternativaD: "Ajuda a manter o foco mental",
+                alternativaCorreta: "alternativaC"
             },
             {
-                pergunta: "Como calcular TMB?",
-                alternativaA: "Fórmula de Harris-Benedict",
-                alternativaB: "Avaliação física subjetiva",
-                alternativaC: "Medição por bioimpedância",
-                alternativaD: "",
-                alternativaCorreta: "alternativaA" // !!! ATUALIZE PARA A RESPOSTA CORRETA !!!
+                pergunta: "O que é overtraining?",
+                alternativaA: "Técnica de aumentar repetições",
+                alternativaB: "Treinar apenas nos finais de semana",
+                alternativaC: "Excesso de treinos sem recuperação adequada",
+                alternativaD: "Comer carboidratos antes de dormir",
+                alternativaCorreta: "alternativaC"
+            },
+
+            //  Alimentação
+            {
+                pergunta: "O que é a TMB (Taxa Metabólica Basal)?",
+                alternativaA: "Quantidade de calorias que o corpo gasta em repouso",
+                alternativaB: "Medida do quanto um alimento engorda",
+                alternativaC: "Percentual de gordura corporal ideal",
+                alternativaD: "Número de refeições que alguém deve fazer por dia",
+                alternativaCorreta: "alternativaA"
             },
             {
-                pergunta: "Por que o sono é importante para hipertrofia?",
-                alternativaA: "Recuperação hormonal e muscular",
-                alternativaB: "Melhora da digestão",
-                alternativaC: "Aumento da resistência cardiovascular",
-                alternativaD: "",
-                alternativaCorreta: "alternativaA" // !!! ATUALIZE PARA A RESPOSTA CORRETA !!!
+                pergunta: "Quantas calorias tem, em média, 1 grama de gordura?",
+                alternativaA: "4 kcal",
+                alternativaB: "7 kcal",
+                alternativaC: "9 kcal",
+                alternativaD: "12 kcal",
+                alternativaCorreta: "alternativaC"
+            },
+            {
+                pergunta: "Qual o principal papel das proteínas na alimentação de quem treina?",
+                alternativaA: "Reduzir a fome",
+                alternativaB: "Fornecer energia rápida",
+                alternativaC: "Contribuir na construção e recuperação muscular",
+                alternativaD: "Melhorar a digestão",
+                alternativaCorreta: "alternativaC"
+            },
+            {
+                pergunta: "Qual combinação de macronutrientes é mais comum em dietas para hipertrofia?",
+                alternativaA: "Pouca proteína e muita gordura",
+                alternativaB: "Alta proteína, baixo carboidrato",
+                alternativaC: "Proteína moderada, carboidrato elevado e gorduras saudáveis",
+                alternativaD: "Só carboidrato e gordura",
+                alternativaCorreta: "alternativaC"
+            },
+
+            //  Diversos
+            {
+                pergunta: "Por que o sono é importante para quem busca hipertrofia muscular?",
+                alternativaA: "Evita o acúmulo de gordura no fígado",
+                alternativaB: "Estimula hormônios de recuperação e crescimento",
+                alternativaC: "Melhora o apetite",
+                alternativaD: "Aumenta a força imediatamente",
+                alternativaCorreta: "alternativaB"
+            },
+            {
+                pergunta: "É possível eliminar gordura apenas em uma parte específica do corpo?",
+                alternativaA: "Sim, com exercícios direcionados",
+                alternativaB: "Não, a queima é geral e controlada por hormônios/genética",
+                alternativaC: "Sim, com dieta líquida",
+                alternativaD: "Depende da idade",
+                alternativaCorreta: "alternativaB"
+            },
+            {
+                pergunta: "Quais são riscos comuns do uso de anabolizantes sem orientação?",
+                alternativaA: "Aumento de energia apenas",
+                alternativaB: "Redução da testosterona natural e problemas de saúde",
+                alternativaC: "Aumento de massa magra sem efeitos colaterais",
+                alternativaD: "Apenas acne e queda de cabelo",
+                alternativaCorreta: "alternativaB"
+            },
+            {
+                pergunta: "Qual a principal diferença entre fisiculturismo e halterofilismo?",
+                alternativaA: "Um foca na força, outro na estética muscular",
+                alternativaB: "Um é praticado na água, outro na academia",
+                alternativaC: "Um usa aparelhos, outro usa pesos livres",
+                alternativaD: "Um exige dieta, o outro não",
+                alternativaCorreta: "alternativaA"
             }
+
         ];
 
         // Variáveis globais    
@@ -258,6 +320,7 @@
         function tentarNovamente() {
             // Em vez de reload, chama iniciarQuiz para um reset mais suave se preferir
             iniciarQuiz();
+            limparCoresBackgroundOpcoes();
             // window.location.reload(); // Ou usar reload para reset completo
         }
 

@@ -10,7 +10,7 @@
   <script src="./js/sessao.js"></script>
 </head>
 
-<body onload="listar()">
+<body>
 
   <!-- Header -->
   <div class="header">
@@ -48,15 +48,9 @@
         <h2>Bem-vindo!</h2>
         <div class="formulario">
           <!-- CAMPO OCULTO: código de ativação -->
-          <input id="codigo_input" type="hidden" value="PUBLIC" />
-
           <div class="campo">
             <span>Nome:</span>
             <input id="nome_input" type="text" placeholder="Seu nome" />
-          </div>
-          <div class="campo">
-            <span>CPF:</span>
-            <input id="cpf_input" type="text" placeholder="CPF" />
           </div>
           <div class="campo">
             <span>E-mail:</span>
@@ -88,22 +82,17 @@
     </div>
   </div>
 
-  <!-- Script original WebDataVis mantido -->
   <script>
-    let listaEmpresasCadastradas = [];
 
     function cadastrar() {
       var nomeVar = nome_input.value;
-      var cpfVar = cpf_input.value;
       var emailVar = email_input.value;
       var senhaVar = senha_input.value;
       var confirmacaoSenhaVar = confirmacao_senha_input.value;
-      var codigoVar = codigo_input.value;
-      var idEmpresaVincular;
 
       if (
         nomeVar == "" || emailVar == "" || senhaVar == "" ||
-        confirmacaoSenhaVar == "" || codigoVar == "" || cpfVar == ""
+        confirmacaoSenhaVar == ""
       ) {
         cardErro.style.display = "block";
         mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
@@ -113,13 +102,8 @@
         setInterval(sumirMensagem, 5000);
       }
 
-      for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
-        if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
-          idEmpresaVincular = listaEmpresasCadastradas[i].id;
-          console.log("Código de ativação válido.");
-          break;
-        }
-      }
+      idEmpresaVincular = null;
+
 
       fetch("/usuarios/cadastrar", {
         method: "POST",
@@ -127,9 +111,7 @@
         body: JSON.stringify({
           nomeServer: nomeVar,
           emailServer: emailVar,
-          senhaServer: senhaVar,
-          cpfServer: cpfVar,
-          idEmpresaVincularServer: idEmpresaVincular
+          senhaServer: senhaVar
         })
       }).then(function (resposta) {
         if (resposta.ok) {
@@ -146,12 +128,6 @@
         finalizarAguardar();
       });
       return false;
-    }
-
-    function listar() {
-      fetch("/empresas/listar").then(res => res.json()).then(empresas => {
-        empresas.forEach(emp => listaEmpresasCadastradas.push(emp));
-      }).catch(resposta => console.log(`#ERRO: ${resposta}`));
     }
 
     function sumirMensagem() {
