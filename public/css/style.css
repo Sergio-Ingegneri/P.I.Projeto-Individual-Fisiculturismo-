@@ -1116,6 +1116,22 @@ body.quiz-page .footer {         /* só o footer do Quiz ganha empuxo   */
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
   height: auto;
 }
+/* ============ DASHBOARD - tamanhos dos gráficos ============ */
+.dashboard-page .graficos{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(400px,1fr));
+  gap:32px;
+  text-align:center;
+}
+
+.dashboard-page .grafico canvas{
+  width:100%;   
+  max-width:600px;
+  height:auto;       
+  max-height:400px;   
+  margin:0 auto;
+}
+
 
 
 

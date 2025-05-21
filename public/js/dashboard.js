@@ -1,116 +1,128 @@
-/* public/js/dashboard.js */
+/* dashboard.js – mock */
 
-var chartRadar, chartPizza, chartBarrasBlocos, chartBarrasNiveis;
+var chartRadar, chartBarrasArea, chartPizzaAE, chartBarErros;
 
-/* =============== CARREGA DADOS =============== */
 function inicializarDashboard() {
-  var idUsuario = sessionStorage.ID_USUARIO;
-  if (!idUsuario) {
-    alert("Usuário não logado.");
-    window.location.href = "login.html";
-    return;
-  }
+  /* -------- MOCK -------- */
+  var dados = {
+    /* KPIs */
+    acertos : 7,
+    erros   : 2,
+    /* acertos por área (mantidos p/ radar) */
+    treinoA : 3,
+    nutricaoA:2,
+    complA  : 2,
+    /* erros por área (NOVO) */
+    treinoE : 1,
+    nutricaoE:2,
+    complE  : 1,
+    /* top 5 erros */
+    topErros: [
+      { texto: "Treinar sem descanso…",   erros: 5 },
+      { texto: "1 g de gordura = 4 kcal", erros: 4 },
+      { texto: "Gordura localizada…",     erros: 3 },
+      { texto: "Overtraining é…",         erros: 2 },
+      { texto: "Proteínas auxiliam…",     erros: 2 }
+    ],
+    total_usuarios: 42
+  };
 
-  fetch("/dashboard/dados/" + idUsuario)
-    .then(function (res) { return res.json(); })
-    .then(function (data) {
-
-      /* zera possíveis NULL do MySQL 5.6 */
-      ["acertos","erros","treino","alimentacao","diversos",
-       "iniciante","intermediario","avancado"].forEach(function (k) {
-        if (data[k] == null) data[k] = 0;
-      });
-
-      preencherKPIs(data);
-      gerarGraficos(data);
-      gerarRecomendacoes(data);
-    })
-    .catch(function (e) {
-      console.error("Dash erro:", e);
-      alert("Falha ao buscar dados.");
-    });
+  preencherKPIs(dados);
+  gerarGraficos(dados);
 }
 
-/* =============== KPIs =============== */
-function preencherKPIs(obj) {
-  var acertos = obj.acertos;
-  var erros   = obj.erros;
-  var total   = acertos + erros;
-  var pct     = total ? Math.round((acertos / total) * 100) : 0;
+/* ===== KPIs ===== */
+function preencherKPIs(d) {
+  var total = d.acertos + d.erros;
+  var pct   = total ? Math.round((d.acertos / total) * 100) : 0;
 
   var nivel = "Iniciante";
   if (pct >= 70)      nivel = "Avançado";
   else if (pct >= 40) nivel = "Intermediário";
 
   document.getElementById("kpiPontuacao").innerHTML =
-    "✅ Pontuação: " + acertos + "/" + total + " (" + pct + "%)";
+    "✅ Pontuação: " + d.acertos + "/" + total + " (" + pct + "%)";
   document.getElementById("kpiClassificacao").innerHTML =
     "🎓 Classificação: " + nivel;
   document.getElementById("kpiUsuarios").innerHTML =
-    "👥 Total de usuários: " + obj.total_usuarios;
+    "👥 Total de usuários: " + d.total_usuarios;
 }
 
-/* =============== GRÁFICOS =============== */
-function gerarGraficos(obj) {
-  /* destrói se já existirem */
-  if (chartRadar)        chartRadar.destroy();
-  if (chartPizza)        chartPizza.destroy();
-  if (chartBarrasBlocos) chartBarrasBlocos.destroy();
-  if (chartBarrasNiveis) chartBarrasNiveis.destroy();
+/* ===== GRÁFICOS ===== */
+function gerarGraficos(d) {
+  if (chartRadar)      chartRadar.destroy();
+  if (chartBarrasArea) chartBarrasArea.destroy();
+  if (chartPizzaAE)    chartPizzaAE.destroy();
+  if (chartBarErros)   chartBarErros.destroy();
 
-  /* Radar */
+  /* 1. Radar (continua usando acertos por área) */
   chartRadar = new Chart(document.getElementById("graficoRadar"), {
     type: "radar",
     data: {
-      labels: ["Treinamento", "Alimentação", "Diversos"],
-      datasets: [{ data: [obj.treino, obj.alimentacao, obj.diversos], borderWidth: 2 }]
+      labels: ["Treino", "Nutrição", "Complementar"],
+      datasets: [{
+        label: "Acertos",
+        data : [d.treinoA, d.nutricaoA, d.complA],
+        borderWidth: 2
+      }]
     },
     options: radarOptions()
   });
 
-  /* Pizza */
-  chartPizza = new Chart(document.getElementById("graficoPizza"), {
-    type: "pie",
-    data: {
-      labels: ["Treino", "Alimentação", "Diversos"],
-      datasets: [{ data: [obj.treino, obj.alimentacao, obj.diversos], borderWidth: 1 }]
-    },
-    options: legendWhite()
-  });
+  /* 2. Barras por área – agora ERROS */
+  chartBarrasArea = new Chart(document.getElementById("graficoBarrasBlocos"), {
+  type: "bar",
+  data: {
+    labels: ["Treino", "Nutrição", "Complementar"],
+    datasets: [{
+      label: "Erros",
+      data : [d.treinoE, d.nutricaoE, d.complE],
+      backgroundColor: "rgba(255, 99, 132, 0.5)",  // 🔴 vermelho (mesmo tom da pizza)
+      borderColor:    "rgb(255, 99, 132)",
+      borderWidth: 1
+    }]
+  },
+  options: barrasOptions()
+});
 
-  /* Barras – acertos por bloco */
-  chartBarrasBlocos = new Chart(document.getElementById("graficoBarrasBlocos"), {
+  /* 3. Pizza Acertos × Erros */
+/* 3. Pizza Acertos × Erros */
+chartPizzaAE = new Chart(document.getElementById("graficoPizzaAE"), {
+  type: "pie",
+  data: {
+    labels: ["Acertos", "Erros"],
+    datasets: [{
+      data: [d.acertos, d.erros],
+      backgroundColor: [
+        "rgba(54, 162, 235, 0.6)",   // 🔵 azul (acertos)
+        "rgba(255, 99, 132, 0.6)"    // 🔴 vermelho (erros) – igual ao de barras
+      ],
+      borderColor: [
+        "rgb(54, 162, 235)",
+        "rgb(255, 99, 132)"
+      ],
+      borderWidth: 1
+    }]
+  },
+  options: legendWhite()
+});
+
+  /* 4. Barra horizontal Top 5 erros */
+  chartBarErros = new Chart(document.getElementById("graficoBarErros"), {
     type: "bar",
     data: {
-      labels: ["Treino", "Alimentação", "Diversos"],
-      datasets: [{ label: "Acertos", data: [obj.treino, obj.alimentacao, obj.diversos], borderWidth: 1 }]
+      labels: d.topErros.map(function (e) { return e.texto; }),
+      datasets: [{ label: "Erros", data: d.topErros.map(function (e) { return e.erros; }), borderWidth: 1 }]
     },
-    options: barrasOptions()
-  });
-
-  /* Barras – nível geral dos usuários */
-  var labelsN  = ["Iniciante","Intermediário","Avançado"];
-  var valoresN = [obj.iniciante, obj.intermediario, obj.avancado];
-
-  chartBarrasNiveis = new Chart(document.getElementById("graficoBarrasNiveis"), {
-    type: "bar",
-    data: { labels: labelsN, datasets: [{ label: "Usuários", data: valoresN, borderWidth: 1 }] },
-    options: barrasOptions()
+    options: {
+      indexAxis: "y",
+      scales: { x: { ticks: { color: "white" } }, y: { ticks: { color: "white" } } },
+      plugins: legendWhite().plugins
+    }
   });
 }
 
-/* =============== RECOMENDAÇÕES =============== */
-function gerarRecomendacoes(obj) {
-  var msgs = [];
-  obj.treino      <= 2 ? msgs.push("⚠️ Reforce métodos de treino.")     : msgs.push("✅ Ótimo em Treino.");
-  obj.alimentacao <= 2 ? msgs.push("⚠️ Aprimore nutrição esportiva.")   : msgs.push("✅ Bom em Alimentação.");
-  obj.diversos    <= 2 ? msgs.push("⚠️ Revise temas gerais.")           : msgs.push("✅ Conteúdo geral ok.");
-
-  document.getElementById("recomendacao").innerHTML =
-    msgs.map(function (m) { return "<p>" + m + "</p>"; }).join("");
-}
-
-/* =============== HELPERs de estilo =============== */
+/* ===== Helpers ===== */
 function legendWhite() {
   return { plugins: { legend: { labels: { color: "white" } } } };
 }
@@ -126,9 +138,9 @@ function radarOptions() {
     scales: {
       r: {
         pointLabels: { color: "white" },
-        grid:       { color: "gray"  },
-        angleLines: { color: "gray"  },
-        ticks:      { color: "white", backdropColor: "transparent" }
+        grid: { color: "gray" },
+        angleLines: { color: "gray" },
+        ticks: { color: "white", backdropColor: "transparent" }
       }
     }
   };

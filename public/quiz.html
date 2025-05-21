@@ -75,16 +75,22 @@
 <script>
 /* ----- QUESTÕES ----- */
 const listaDeQuestoes = [
-  { pergunta: "O método Heavy Duty foca em poucas séries até a falha total.", correta: "Certo" },
-  { pergunta: "Treinar sem descanso melhora os resultados de hipertrofia.",   correta: "Errado" },
-  { pergunta: "Overtraining é o excesso de treinos sem recuperação adequada.",correta: "Certo" },
-  { pergunta: "A TMB representa as calorias gastas em repouso pelo corpo.",   correta: "Certo" },
-  { pergunta: "1 grama de gordura possui aproximadamente 4 kcal.",            correta: "Errado" },
-  { pergunta: "As proteínas auxiliam na construção e recuperação muscular.",  correta: "Certo" },
-  { pergunta: "Uma dieta de hipertrofia costuma ter proteína moderada e carboidratos elevados.", correta: "Certo" },
-  { pergunta: "É possível eliminar gordura localizada apenas com exercícios de uma região.",     correta: "Errado" },
-  { pergunta: "O sono libera hormônios importantes para recuperação e crescimento muscular.",    correta: "Certo" }
+  // ⬇ Treinamento
+  { pergunta:"O método Heavy Duty foca…",               correta:"Certo", area:"Treino" },
+  { pergunta:"Treinar sem descanso…",                   correta:"Errado", area:"Treino" },
+  { pergunta:"Overtraining é…",                         correta:"Certo", area:"Treino" },
+
+  // ⬇ Alimentação
+  { pergunta:"A TMB representa…",                       correta:"Certo", area:"Nutrição" },
+  { pergunta:"1 g de gordura possui 4 kcal.",           correta:"Errado", area:"Nutrição" },
+  { pergunta:"As proteínas auxiliam…",                  correta:"Certo", area:"Nutrição" },
+
+  // ⬇ Complementares
+  { pergunta:"Dieta de hipertrofia costuma…",           correta:"Certo", area:"Complementar" },
+  { pergunta:"É possível queimar gordura localizada…",  correta:"Errado", area:"Complementar" },
+  { pergunta:"O sono libera hormônios…",                correta:"Certo", area:"Complementar" }
 ];
+
 
 /* ----- VARIÁVEIS ----- */
 let numeroDaQuestaoAtual = 0, pontuacaoFinal = 0, certas = 0, erradas = 0;
