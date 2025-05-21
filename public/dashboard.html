@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BodyPedia | Dashboard</title>
+
+  <!-- favicon + css -->
+  <link rel="icon" href="../public/assets/imgs/header_logo.png" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dashboard-page" onload="inicializarDashboard()">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container">
+      <div class="imagem">
+        <img src="../public/assets/imgs/header_logo.png" id="logo_header" alt="Logo BodyPedia" />
+        <h1 class="titulo">BodyPedia</h1>
+      </div>
+      <ul class="navbar">
+        <li><a href="index.html">Home 🏠</a></li>
+        <li><a href="fisiculturistas.html">Fisiculturistas 🏋️‍♀️</a></li>
+        <li><a href="infoTMB.html">TMB 📊</a></li>
+        <li><a href="blog.html">Blog 📖</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- BANNER -->
+  <section class="banner">
+    <div class="container">
+      <p>Treino, mente e rotina — uma jornada completa pelo fisiculturismo</p>
+    </div>
+  </section>
+
+  <!-- KPIs -->
+  <section class="kpis container">
+    <div class="kpi-card" id="kpiUsuarios">👥 Total de usuários: ...</div>
+    <div class="kpi-card" id="kpiPontuacao">✅ Pontuação: ...</div>
+    <div class="kpi-card" id="kpiClassificacao">🎓 Classificação: ...</div>
+  </section>
+
+  <!-- GRÁFICOS -->
+  <section class="graficos container">
+    <div class="grafico">
+      <h2>Radar de Desempenho</h2>
+      <canvas id="graficoRadar"></canvas>
+    </div>
+    <div class="grafico">
+      <h2>Distribuição por Bloco</h2>
+      <canvas id="graficoPizza"></canvas>
+    </div>
+    <div class="grafico">
+      <h2>Acertos por Área</h2>
+      <canvas id="graficoBarrasBlocos"></canvas>
+    </div>
+    <div class="grafico">
+      <h2>Nível Geral dos Usuários</h2>
+      <canvas id="graficoBarrasNiveis"></canvas>
+    </div>
+  </section>
+
+  <!-- RECOMENDAÇÕES -->
+  <section class="container recomendacoes">
+    <h2>📌 Recomendação</h2>
+    <p id="recomendacao">Carregando recomendação...</p>
+  </section>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

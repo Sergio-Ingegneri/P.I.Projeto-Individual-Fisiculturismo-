@@ -1,414 +1,221 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BodyPedia | Quiz</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="../public/assets/imgs/header_logo.png" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BodyPedia | Quiz</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="../public/assets/imgs/header_logo.png">
 </head>
 
 <body class="quiz-page" onload="onloadEsconder()">
+  <!-- ======= HEADER ======= -->
+  <div class="header">
+    <div class="container">
+      <div class="imagem">
+        <img src="../public/assets/imgs/header_logo.png" id="logo_header" alt="Logo BodyPedia">
+        <h1 class="titulo">BodyPedia</h1>
+      </div>
+      <ul class="navbar">
+        <li><a href="index.html">Home 🏠</a></li>
+        <li><a href="fisiculturistas.html">Fisiculturistas 🏋️‍♀️</a></li>
+        <li><a href="infoTMB.html">TMB 📊</a></li>
+        <li><a href="blog.html">Blog 📖</a></li>
+      </ul>
+    </div>
+  </div>
 
-    <!-- Header -->
-    <div class="header">
-        <div class="container">
-            <div class="imagem">
-                <img src="../public/assets/imgs/header_logo.png" id="logo_header" alt="Logo BodyPedia">
-                <h1 class="titulo">BodyPedia</h1>
-            </div>
-            <ul class="navbar">
-                <li><a href="index.html">Home 🏠</a></li>
-                <li><a href="fisiculturistas.html">Fisiculturistas 🏋️‍♀️</a></li>
-                <li><a href="infoTMB.html">TMB 📊</a></li>
-                <li><a href="blog.html">Blog 📖</a></li>
-            </ul>
-        </div>
+  <!-- ======= BANNER ======= -->
+  <div class="banner">
+    <div class="container"><p>Treino, mente e rotina — uma jornada completa pelo fisiculturismo</p></div>
+  </div>
+
+  <!-- ======= PAINEL QUIZ ======= -->
+  <div id="pontuacaoEJogo">
+    <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
+
+    <div id="pontuacao">
+      <div id="pontuacaoDuranteJogo">
+        <span>Quantidade de acertos: <span id="spanCertas"></span></span>
+        <span>Quantidade de erros: <span id="spanErradas"></span></span>
+      </div>
+      <div id="pontuacaoFinalJogo">
+        <span id="pontuacaoFinal">Pontuação Final: <span id="spanPontuacaoFinal">***</span></span>
+        <span id="msgFinal">***</span>
+      </div>
     </div>
 
-    <!-- Banner -->
-    <div class="banner">
-        <div class="container">
-            <p>Treino, mente e rotina — uma jornada completa pelo fisiculturismo</p>
-        </div>
+    <div id="jogo">
+      <div id="infoQuestao"><span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span> questões.</span></div>
+      <div id="perguntaDaQuestaoAtual"><span id="spanQuestaoExibida"></span></div>
+      <div id="infoAlternativas"><span><em>Escolha uma opção dentre as abaixo:</em></span></div>
+
+      <div id="opcoes">
+        <label class="option-container" id="containerOpcaoA">
+          <input type="radio" id="primeiraOpcao" name="option" class="radio" value="Certo">
+          <span id="labelOpcaoUm" class="option">Certo</span>
+        </label>
+        <label class="option-container" id="containerOpcaoB">
+          <input type="radio" id="segundaOpcao" name="option" class="radio" value="Errado">
+          <span id="labelOpcaoDois" class="option">Errado</span>
+        </label>
+      </div>
+
+      <div id="botoes">
+        <button onclick="submeter()" id="btnSubmeter">Submeter resposta</button>
+        <button onclick="avancar()"  id="btnProx" disabled>Avançar para próxima questão</button>
+      </div>
     </div>
+  </div>
 
-    <div id="pontuacaoEJogo">
-        <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
+  <!-- ======= FOOTER ======= -->
+  <div class="footer"><div class="container"><h4>Sergio Ingegneri © 2025 SpTech 1CCOB</h4></div></div>
 
-        <div id="pontuacao">
-            <div id="pontuacaoDuranteJogo">
-                <span>Quantidade de acertos: <span id="spanCertas"></span></span>
-                <span>Quantidade de erros: <span id="spanErradas"></span></span>
-            </div>
-            <div id="pontuacaoFinalJogo">
-                <span id="pontuacaoFinal">Pontuação Final:
-                    <span id="spanPontuacaoFinal">***</span>
-                </span>
-                <span id="msgFinal">***</span>
-            </div>
-        </div>
+<!-- ========== SCRIPT ========== -->
+<script>
+/* ----- QUESTÕES ----- */
+const listaDeQuestoes = [
+  { pergunta: "O método Heavy Duty foca em poucas séries até a falha total.", correta: "Certo" },
+  { pergunta: "Treinar sem descanso melhora os resultados de hipertrofia.",   correta: "Errado" },
+  { pergunta: "Overtraining é o excesso de treinos sem recuperação adequada.",correta: "Certo" },
+  { pergunta: "A TMB representa as calorias gastas em repouso pelo corpo.",   correta: "Certo" },
+  { pergunta: "1 grama de gordura possui aproximadamente 4 kcal.",            correta: "Errado" },
+  { pergunta: "As proteínas auxiliam na construção e recuperação muscular.",  correta: "Certo" },
+  { pergunta: "Uma dieta de hipertrofia costuma ter proteína moderada e carboidratos elevados.", correta: "Certo" },
+  { pergunta: "É possível eliminar gordura localizada apenas com exercícios de uma região.",     correta: "Errado" },
+  { pergunta: "O sono libera hormônios importantes para recuperação e crescimento muscular.",    correta: "Certo" }
+];
 
-        <div id="jogo">
-            <div id="infoQuestao">
-                <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span>
-                    questões.</span>
-            </div>
+/* ----- VARIÁVEIS ----- */
+let numeroDaQuestaoAtual = 0, pontuacaoFinal = 0, certas = 0, erradas = 0;
+const quantidadeDeQuestoes = listaDeQuestoes.length;
+let respostasArr = [];   // <-- NOVO: armazena respostas para o backend
 
-            <div id="perguntaDaQuestaoAtual">
-                <span id="spanQuestaoExibida"></span>
-            </div>
+/* ----- VISIBILIDADE ----- */
+function onloadEsconder() {
+  pontuacao.style.display         = "none";
+  jogo.style.display              = "none";
+  pontuacaoFinalJogo.style.display= "none";
+}
 
-            <div id="infoAlternativas">
-                <span><em>Escolha uma opção dentre as abaixo:</em></span>
-            </div>
+/* ----- INICIAR QUIZ ----- */
+function iniciarQuiz() {
+  pontuacao.style.display           = "block";
+  pontuacaoDuranteJogo.style.display= "block";
+  pontuacaoFinalJogo.style.display  = "none";
+  jogo.style.display                = "flex";
+  btnIniciarQuiz.style.display      = "none";
 
-            <div id="opcoes">
-                <label class="option-container" id="containerOpcaoA">
-                    <input type="radio" id="primeiraOpcao" name="option" class="radio" value="alternativaA" />
-                    <span id="labelOpcaoUm" class="option"></span>
-                </label>
-                <label class="option-container" id="containerOpcaoB">
-                    <input type="radio" id="segundaOpcao" name="option" class="radio" value="alternativaB" />
-                    <span id="labelOpcaoDois" class="option"></span>
-                </label>
-                <label class="option-container" id="containerOpcaoC">
-                    <input type="radio" id="terceiraOpcao" name="option" class="radio" value="alternativaC" />
-                    <span id="labelOpcaoTres" class="option"></span>
-                </label>
-                <label class="option-container" id="containerOpcaoD">
-                    <input type="radio" id="quartaOpcao" name="option" class="radio" value="alternativaD" />
-                    <span id="labelOpcaoQuatro" class="option"></span>
-                </label>
-            </div>
+  numeroDaQuestaoAtual = pontuacaoFinal = certas = erradas = 0;
+  respostasArr = [];
+  qtdQuestoes.textContent = quantidadeDeQuestoes;
+  spanCertas.textContent  = spanErradas.textContent = 0;
+  spanPontuacaoFinal.textContent = msgFinal.textContent = "***";
+  msgFinal.className = "";
 
-            <div id="botoes">
-                <button onclick="submeter()" id="btnSubmeter">Submeter resposta</button>
-                <button onclick="avancar()" id="btnProx" disabled>Avançar para próxima questão</button>
-                <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button>
-            </div>
-        </div>
-    </div>
+  preencherHTMLcomQuestaoAtual(0);
+  btnSubmeter.disabled = false; btnProx.disabled = true;
+}
 
-    <div class="footer">
-        <div class="container">
-            <h4>Sergio Ingegneri © 2025 SpTech 1CCOB</h4>
-        </div>
-    </div>
+/* ----- RENDERIZA QUESTÃO ----- */
+function preencherHTMLcomQuestaoAtual(idx) {
+  habilitarAlternativas(true);
+  const q = listaDeQuestoes[idx];
+  spanNumeroDaQuestaoAtual.textContent = idx + 1;
+  spanQuestaoExibida.textContent       = q.pergunta;
+  primeiraOpcao.checked = segundaOpcao.checked = false;
+}
 
-    <script>
-        const listaDeQuestoes = [
-            //  Treinamento
-            {
-                pergunta: "Qual o foco do método Heavy Duty?",
-                alternativaA: "Volume alto de treino",
-                alternativaB: "Repetições explosivas e curtas",
-                alternativaC: "Poucas séries até a falha total",
-                alternativaD: "Treino com descanso ativo",
-                alternativaCorreta: "alternativaC"
-            },
-            {
-                pergunta: "O que caracteriza um treino com base na biomecânica correta?",
-                alternativaA: "Realizar mais repetições que o normal",
-                alternativaB: "Executar os movimentos respeitando ângulos e alavancas do corpo",
-                alternativaC: "Treinar com máxima velocidade sempre",
-                alternativaD: "Utilizar apenas o peso corporal",
-                alternativaCorreta: "alternativaB"
-            },
-            {
-                pergunta: "Por que o descanso entre os treinos é essencial para a evolução?",
-                alternativaA: "Evita o ganho de gordura",
-                alternativaB: "Reduz a fome após o treino",
-                alternativaC: "É quando ocorre a recuperação e o crescimento muscular",
-                alternativaD: "Ajuda a manter o foco mental",
-                alternativaCorreta: "alternativaC"
-            },
-            {
-                pergunta: "O que é overtraining?",
-                alternativaA: "Técnica de aumentar repetições",
-                alternativaB: "Treinar apenas nos finais de semana",
-                alternativaC: "Excesso de treinos sem recuperação adequada",
-                alternativaD: "Comer carboidratos antes de dormir",
-                alternativaCorreta: "alternativaC"
-            },
+/* ----- SUBMETER ----- */
+function submeter() {
+  const marcado = document.querySelector('input[name="option"]:checked');
+  if (!marcado) { alert("Escolha uma opção."); return; }
+  btnSubmeter.disabled = true; btnProx.disabled = false;
+  habilitarAlternativas(false);
+  checarResposta(marcado.value);
+}
 
-            //  Alimentação
-            {
-                pergunta: "O que é a TMB (Taxa Metabólica Basal)?",
-                alternativaA: "Quantidade de calorias que o corpo gasta em repouso",
-                alternativaB: "Medida do quanto um alimento engorda",
-                alternativaC: "Percentual de gordura corporal ideal",
-                alternativaD: "Número de refeições que alguém deve fazer por dia",
-                alternativaCorreta: "alternativaA"
-            },
-            {
-                pergunta: "Quantas calorias tem, em média, 1 grama de gordura?",
-                alternativaA: "4 kcal",
-                alternativaB: "7 kcal",
-                alternativaC: "9 kcal",
-                alternativaD: "12 kcal",
-                alternativaCorreta: "alternativaC"
-            },
-            {
-                pergunta: "Qual o principal papel das proteínas na alimentação de quem treina?",
-                alternativaA: "Reduzir a fome",
-                alternativaB: "Fornecer energia rápida",
-                alternativaC: "Contribuir na construção e recuperação muscular",
-                alternativaD: "Melhorar a digestão",
-                alternativaCorreta: "alternativaC"
-            },
-            {
-                pergunta: "Qual combinação de macronutrientes é mais comum em dietas para hipertrofia?",
-                alternativaA: "Pouca proteína e muita gordura",
-                alternativaB: "Alta proteína, baixo carboidrato",
-                alternativaC: "Proteína moderada, carboidrato elevado e gorduras saudáveis",
-                alternativaD: "Só carboidrato e gordura",
-                alternativaCorreta: "alternativaC"
-            },
+/* ----- CHECAR RESPOSTA ----- */
+function checarResposta(respUsuario) {
+  const q   = listaDeQuestoes[numeroDaQuestaoAtual];
+  const gab = q.correta;
 
-            //  Diversos
-            {
-                pergunta: "Por que o sono é importante para quem busca hipertrofia muscular?",
-                alternativaA: "Evita o acúmulo de gordura no fígado",
-                alternativaB: "Estimula hormônios de recuperação e crescimento",
-                alternativaC: "Melhora o apetite",
-                alternativaD: "Aumenta a força imediatamente",
-                alternativaCorreta: "alternativaB"
-            },
-            {
-                pergunta: "É possível eliminar gordura apenas em uma parte específica do corpo?",
-                alternativaA: "Sim, com exercícios direcionados",
-                alternativaB: "Não, a queima é geral e controlada por hormônios/genética",
-                alternativaC: "Sim, com dieta líquida",
-                alternativaD: "Depende da idade",
-                alternativaCorreta: "alternativaB"
-            },
-            {
-                pergunta: "Quais são riscos comuns do uso de anabolizantes sem orientação?",
-                alternativaA: "Aumento de energia apenas",
-                alternativaB: "Redução da testosterona natural e problemas de saúde",
-                alternativaC: "Aumento de massa magra sem efeitos colaterais",
-                alternativaD: "Apenas acne e queda de cabelo",
-                alternativaCorreta: "alternativaB"
-            },
-            {
-                pergunta: "Qual a principal diferença entre fisiculturismo e halterofilismo?",
-                alternativaA: "Um foca na força, outro na estética muscular",
-                alternativaB: "Um é praticado na água, outro na academia",
-                alternativaC: "Um usa aparelhos, outro usa pesos livres",
-                alternativaD: "Um exige dieta, o outro não",
-                alternativaCorreta: "alternativaA"
-            }
+  // container que deve receber a cor
+  const containerCorreta = gab         === "Certo" ? "containerOpcaoA" : "containerOpcaoB";
+  const containerErrada  = respUsuario === "Certo" ? "containerOpcaoA" : "containerOpcaoB";
 
-        ];
+  if (respUsuario === gab) {
+    document.getElementById(containerCorreta).classList.add("text-success-with-bg");
+    pontuacaoFinal++; certas++; spanCertas.textContent = certas;
+  } else {
+    document.getElementById(containerErrada ).classList.add("text-danger-with-bg");
+    document.getElementById(containerCorreta).classList.add("text-success-with-bg");
+    erradas++; spanErradas.textContent = erradas;
+  }
 
-        // Variáveis globais    
-        let numeroDaQuestaoAtual = 0;
-        let pontuacaoFinal = 0;
-        // let tentativaIncorreta = 0; // Esta variável não é crítica para a pontuação final no script atual
-        let certas = 0;
-        let erradas = 0;
-        let quantidadeDeQuestoes = listaDeQuestoes.length;
+  // NOVO: guarda tentativa
+  respostasArr.push({
+      pergunta: q.pergunta,
+      resposta: respUsuario,
+      correta : gab,
+      acertou : (respUsuario === gab)
+  });
 
-        function onloadEsconder() {
-            document.getElementById('pontuacao').style.display = "none";
-            document.getElementById('jogo').style.display = "none";
-            document.getElementById('pontuacaoFinalJogo').style.display = "none";
-        }
+  numeroDaQuestaoAtual++;
+  if (numeroDaQuestaoAtual >= quantidadeDeQuestoes) btnProx.textContent = "Ver Resultado";
+}
 
-        function iniciarQuiz() {
-            document.getElementById('pontuacao').style.display = "block"; // Ou "flex" se for estilizado com flex
-            document.getElementById('pontuacaoDuranteJogo').style.display = "block"; // Ou "flex"
-            document.getElementById('pontuacaoFinalJogo').style.display = "none";
-            document.getElementById('jogo').style.display = "flex"; // Usar flex para #jogo por causa do flex-direction: column
-            document.getElementById('btnIniciarQuiz').style.display = "none";
+/* ----- AVANÇAR ----- */
+function avancar() {
+  btnProx.disabled = true; btnSubmeter.disabled = false;
+  desmarcarRadioButtons(); limparCores();
+  if (numeroDaQuestaoAtual < quantidadeDeQuestoes) {
+    preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual);
+    if (numeroDaQuestaoAtual === quantidadeDeQuestoes - 1) btnProx.textContent = "Ver Resultado";
+  } else finalizarJogo();
+}
 
-            // Resetar contadores para caso o usuário tente novamente sem recarregar a página (se essa funcionalidade for adicionada)
-            numeroDaQuestaoAtual = 0;
-            pontuacaoFinal = 0;
-            certas = 0;
-            erradas = 0;
+/* ----- FINALIZAR ----- */
+function finalizarJogo() {
+  jogo.style.display                  = "none";
+  pontuacaoDuranteJogo.style.display  = "none";
+  pontuacaoFinalJogo.style.display    = "block";
 
-            document.getElementById('qtdQuestoes').innerHTML = quantidadeDeQuestoes;
-            document.getElementById('spanCertas').innerHTML = certas;
-            document.getElementById('spanErradas').innerHTML = erradas;
-            document.getElementById('spanPontuacaoFinal').innerHTML = "***";
-            document.getElementById('msgFinal').innerHTML = "***";
-            // Limpar classes de cor da msgFinal se tentar novamente
-            document.getElementById('msgFinal').classList.remove("text-success-with-bg", "text-danger-with-bg", "text-warning-with-bg");
+  const pct = pontuacaoFinal / quantidadeDeQuestoes;
+  let msg, cls;
+  if (pct <= 0.3)      { msg = "Parece que você não estudou...";  cls = "text-danger-with-bg"; }
+  else if (pct <= 0.8) { msg = "Pode melhorar na próxima, hein!"; cls = "text-warning-with-bg"; }
+  else                 { msg = "Uau, parabéns!";                  cls = "text-success-with-bg"; }
 
+  msg += "<br> Você acertou " + Math.round(pct*100) + "% das questões.";
+  msgFinal.innerHTML  = msg;
+  msgFinal.className  = cls;
+  spanPontuacaoFinal.textContent = pontuacaoFinal + " de " + quantidadeDeQuestoes;
 
-            preencherHTMLcomQuestaoAtual(0);
+  btnProx.disabled = true; btnSubmeter.disabled = true;
 
-            document.getElementById('btnSubmeter').disabled = false;
-            document.getElementById('btnProx').disabled = true;
-            document.getElementById('btnProx').innerHTML = "Avançar para próxima questão";
-            document.getElementById('btnTentarNovamente').disabled = false;
-        }
+  /* ====== NOVO: envia respostas ao backend ====== */
+  fetch("/respostas/cadastrar", {
+      method : "POST",
+      headers: { "Content-Type":"application/json" },
+      body   : JSON.stringify({
+          idUsuario : sessionStorage.ID_USUARIO,
+          respostas : respostasArr
+      })
+  }).catch(e => console.error("Falha ao salvar respostas:", e));
+}
 
-        function preencherHTMLcomQuestaoAtual(index) {
-            habilitarAlternativas(true);
-            const questaoAtual = listaDeQuestoes[index];
-            // numeroDaQuestaoAtual = index; // Já atualizado em checarResposta ou iniciarQuiz
-
-            document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = Number(index) + 1;
-            document.getElementById("spanQuestaoExibida").innerHTML = questaoAtual.pergunta;
-            document.getElementById("labelOpcaoUm").innerHTML = questaoAtual.alternativaA;
-            document.getElementById("labelOpcaoDois").innerHTML = questaoAtual.alternativaB;
-            document.getElementById("labelOpcaoTres").innerHTML = questaoAtual.alternativaC;
-
-            const labelOpcaoQuatro = document.getElementById("labelOpcaoQuatro");
-            const containerOpcaoD = document.getElementById("containerOpcaoD");
-
-            if (questaoAtual.alternativaD && questaoAtual.alternativaD.trim() !== "") {
-                labelOpcaoQuatro.innerHTML = questaoAtual.alternativaD;
-                containerOpcaoD.style.display = "flex"; // Ou o display original do .option-container
-            } else {
-                labelOpcaoQuatro.innerHTML = "";
-                containerOpcaoD.style.display = "none";
-            }
-        }
-
-        function submeter() {
-            const options = document.getElementsByName("option");
-            let hasChecked = false;
-            for (let i = 0; i < options.length; i++) {
-                if (options[i].checked) {
-                    hasChecked = true;
-                    break;
-                }
-            }
-
-            if (!hasChecked) {
-                alert("Escolha uma opção para submeter.");
-            } else {
-                document.getElementById('btnSubmeter').disabled = true;
-                document.getElementById('btnProx').disabled = false;
-                habilitarAlternativas(false);
-                checarResposta();
-            }
-        }
-
-        function habilitarAlternativas(habilitar) {
-            const inputs = ["primeiraOpcao", "segundaOpcao", "terceiraOpcao", "quartaOpcao"];
-            inputs.forEach(id => {
-                document.getElementById(id).disabled = !habilitar;
-            });
-        }
-
-        function avancar() {
-            document.getElementById('btnProx').disabled = true;
-            document.getElementById('btnSubmeter').disabled = false;
-
-            desmarcarRadioButtons();
-            limparCoresBackgroundOpcoes();
-
-            if (numeroDaQuestaoAtual < quantidadeDeQuestoes) {
-                preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual);
-                if (numeroDaQuestaoAtual === quantidadeDeQuestoes - 1 && quantidadeDeQuestoes > 1) { // Se for a última questão a ser exibida
-                    document.getElementById('btnProx').innerHTML = "Ver Resultado";
-                } else if (quantidadeDeQuestoes === 1) { // Se só tiver 1 questão no total
-                    document.getElementById('btnProx').innerHTML = "Ver Resultado";
-                }
-
-            } else {
-                finalizarJogo();
-            }
-        }
-
-        function tentarNovamente() {
-            // Em vez de reload, chama iniciarQuiz para um reset mais suave se preferir
-            iniciarQuiz();
-            limparCoresBackgroundOpcoes();
-            // window.location.reload(); // Ou usar reload para reset completo
-        }
-
-        function checarResposta() {
-            const questaoAtual = listaDeQuestoes[numeroDaQuestaoAtual];
-            const respostaDefinida = questaoAtual.alternativaCorreta;
-            const options = document.getElementsByName("option");
-            let idContainerCorreto = null;
-
-            options.forEach((optionInput) => {
-                if (optionInput.value === respostaDefinida) {
-                    if (optionInput.labels && optionInput.labels.length > 0) {
-                        idContainerCorreto = optionInput.labels[0].id;
-                    }
-                }
-            });
-
-            options.forEach((optionInput) => {
-                if (optionInput.checked) {
-                    const idContainerUsuario = (optionInput.labels && optionInput.labels.length > 0) ? optionInput.labels[0].id : null;
-                    if (optionInput.value === respostaDefinida) {
-                        if (idContainerUsuario) document.getElementById(idContainerUsuario).classList.add("text-success-with-bg");
-                        pontuacaoFinal++;
-                        certas++;
-                        document.getElementById("spanCertas").innerHTML = certas;
-                    } else {
-                        if (idContainerUsuario) document.getElementById(idContainerUsuario).classList.add("text-danger-with-bg");
-                        if (idContainerCorreto) document.getElementById(idContainerCorreto).classList.add("text-success-with-bg");
-                        erradas++;
-                        document.getElementById("spanErradas").innerHTML = erradas;
-                    }
-                }
-            });
-            numeroDaQuestaoAtual++;
-            // Ajuste para o botão "Ver Resultado" quando for a última pergunta respondida
-            if (numeroDaQuestaoAtual >= quantidadeDeQuestoes) {
-                document.getElementById('btnProx').innerHTML = "Ver Resultado";
-            }
-        }
-
-        function limparCoresBackgroundOpcoes() {
-            const idsContainers = ["containerOpcaoA", "containerOpcaoB", "containerOpcaoC", "containerOpcaoD"];
-            idsContainers.forEach(id => {
-                const elem = document.getElementById(id);
-                if (elem) {
-                    elem.classList.remove("text-danger-with-bg", "text-success-with-bg");
-                }
-            });
-        }
-
-        function desmarcarRadioButtons() {
-            const options = document.getElementsByName("option");
-            options.forEach(option => option.checked = false);
-        }
-
-        function finalizarJogo() {
-            document.getElementById('jogo').style.display = "none";
-            document.getElementById('pontuacaoDuranteJogo').style.display = "none";
-            document.getElementById('pontuacaoFinalJogo').style.display = "block"; // Ou "flex"
-
-            let textoMsg;
-            let classeCorMsg;
-            const porcentagem = (quantidadeDeQuestoes > 0) ? (pontuacaoFinal / quantidadeDeQuestoes) : 0;
-
-            if (porcentagem <= 0.3) {
-                textoMsg = "Parece que você não estudou...";
-                classeCorMsg = "text-danger-with-bg";
-            } else if (porcentagem <= 0.8) {
-                textoMsg = "Pode melhorar na próxima, hein!";
-                classeCorMsg = "text-warning-with-bg";
-            } else {
-                textoMsg = "Uau, parabéns!";
-                classeCorMsg = "text-success-with-bg";
-            }
-            textoMsg += "<br> Você acertou " + Math.round(porcentagem * 100) + "% das questões.";
-
-            const msgFinalEl = document.getElementById('msgFinal');
-            msgFinalEl.innerHTML = textoMsg;
-            msgFinalEl.className = 'msgFinal'; // Resetar classes antes de adicionar a nova
-            msgFinalEl.classList.add(classeCorMsg);
-
-            document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal + " de " + quantidadeDeQuestoes;
-
-            document.getElementById('btnProx').disabled = true;
-            document.getElementById('btnSubmeter').disabled = true;
-            document.getElementById('btnTentarNovamente').disabled = true;
-        }
-    </script>
+/* ----- UTILITÁRIAS ----- */
+function habilitarAlternativas(h) {
+  primeiraOpcao.disabled = segundaOpcao.disabled = !h;
+}
+function limparCores() {
+  containerOpcaoA.classList.remove("text-danger-with-bg","text-success-with-bg");
+  containerOpcaoB.classList.remove("text-danger-with-bg","text-success-with-bg");
+}
+function desmarcarRadioButtons() {
+  document.querySelectorAll('input[name=\"option\"]').forEach(r => r.checked = false);
+}
+</script>
 </body>
-
 </html>

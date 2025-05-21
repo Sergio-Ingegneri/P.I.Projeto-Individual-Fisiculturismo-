@@ -15,6 +15,7 @@ body {
     height: 55px;
     border-bottom: 5px solid #1c1c1c;
     background-color: #1a2a3a;
+    
 }
 
 .container {
@@ -629,7 +630,7 @@ input[type="radio"] {
     padding: 12px 16px;
     margin: 0;
     font-family: Arial;
-    font-size: 14px;
+    font-size: 17px;
     color: #1a1a1a;
     background-color: #e8e2c7;
     text-align: justify;
@@ -889,9 +890,19 @@ input[type="radio"] {
 }
 
 body.quiz-page {
+    display: flex;
     background-color: #666666; 
     color: #f2f2ec; 
     font-family: 'Times New Roman', serif;
+    flex-direction: column;
+    min-height: 100vh;
+}
+body.quiz-page #pontuacaoEJogo { /* bloco do botão/quiz centralizado  */
+    margin: auto;                /* preenche espaço livre -> centro    */
+}
+
+body.quiz-page .footer {         /* só o footer do Quiz ganha empuxo   */
+    margin-top: auto;            /* empurra para a base da viewport    */
 }
 
 /* === Ajustes para Login/Cadastro Web‑Data‑Vis ==================== */
@@ -1047,3 +1058,107 @@ body.quiz-page {
 .login-card .chamada {
     margin-top: 20px;
 }
+
+
+
+
+/* Dashboard padrão anterior */
+.dashboard-page {
+  background-color: #333333;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+.kpis {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px auto;
+  gap: 100px; /* você já testou e gostou */
+  max-width: 1200px; /* aumentamos para ocupar mais espaço */
+  padding: 0 20px; /* menos recuo lateral */
+}
+
+.kpi-card {
+  background-color: #e8e2c7;
+  color: #1a2a3a;
+  border-radius: 10px;
+  padding: 15px 20px;
+  width: 100%;
+  max-width: 300px;
+  height: 90px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+
+
+/* Gráficos */
+.graficos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  max-width: 1200px;  /* igual ao .kpis */
+  padding: 0 20px;     /* igual ao .kpis */
+  margin: 40px auto;
+}
+
+.grafico-item {
+  background-color: #444;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+  height: auto;
+}
+
+
+
+/* Recomendações */
+.recomendacoes {
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #222;
+  border-radius: 12px;
+  max-width: 900px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+}
+
+.recomendacoes h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #f0b429;
+  text-align: center; /* CENTRALIZADO */
+}
+
+#areaRecomendacoes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+#areaRecomendacoes p {
+  background-color: #e8e2c7;
+  color: #1a2a3a;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 16px;
+  width: 100%;
+  max-width: 860px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.recomendacoes.container {
+  display: flex;          /* continua flex, mas...               */
+  flex-direction: column; /* …agora empilha                       */
+  align-items: center;    /* opcional: centraliza tudo na largura */
+}
+
+
+
