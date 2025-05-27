@@ -7,7 +7,7 @@ create table usuario(
 			 id int primary key auto_increment,
              email varchar(100),
              nome varchar(100),
-             senha varchar(20)
+             senha varchar(20),
 );
 
 create table areas (
@@ -205,4 +205,7 @@ select fk_area, count(*) qtd from perguntas group by fk_area;
 
 select fk_pergunta, sum(correta) corretas
   from opcao group by fk_pergunta having corretas <> 1;
--- resultado vazio  (significa 1 correta por pergunta)
+select * from usuario;
+select * from respostas;
+
+

@@ -897,23 +897,21 @@ body.quiz-page {
     flex-direction: column;
     min-height: 100vh;
 }
-body.quiz-page #pontuacaoEJogo { /* bloco do botão/quiz centralizado  */
-    margin: auto;                /* preenche espaço livre -> centro    */
+body.quiz-page #pontuacaoEJogo {
+    margin: auto;
 }
 
-body.quiz-page .footer {         /* só o footer do Quiz ganha empuxo   */
-    margin-top: auto;            /* empurra para a base da viewport    */
+body.quiz-page .footer {
+    margin-top: auto;
 }
 
-/* === Ajustes para Login/Cadastro Web‑Data‑Vis ==================== */
-/* Mantém o mesmo look das suas antigas .login-container /.cadastro-container */
+/* Login / Cadastro */
 
 .login, .cadastro {
     padding: 40px 10%;
     background-color: #666666;
 }
 
-/* Cartões principais */
 .login .card,
 .cadastro .card,
 .login-container .login-card,
@@ -927,7 +925,6 @@ body.quiz-page .footer {         /* só o footer do Quiz ganha empuxo   */
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
 }
 
-/* Títulos */
 .login .card h2,
 .cadastro .card h2,
 .login-card h2,
@@ -940,7 +937,6 @@ body.quiz-page .footer {         /* só o footer do Quiz ganha empuxo   */
     text-decoration: underline;
 }
 
-/* Campos de formulário */
 .formulario .campo {
     display: flex;
     flex-direction: column;
@@ -970,7 +966,6 @@ body.quiz-page .footer {         /* só o footer do Quiz ganha empuxo   */
     box-sizing: border-box;
 }
 
-/* Botões de ação */
 .botao,
 .login-card button,
 .cadastro-card button {
@@ -991,7 +986,6 @@ body.quiz-page .footer {         /* só o footer do Quiz ganha empuxo   */
     background-color: #16212a;
 }
 
-/* Alerta de erro ajustado */
 .alerta_erro {
     display: flex;
     justify-content: center;
@@ -1009,7 +1003,6 @@ body.quiz-page .footer {         /* só o footer do Quiz ganha empuxo   */
     text-align: center;
 }
 
-/* Chamada “Já tem conta?” / “Ainda não tem conta?” */
 .login .chamada,
 .cadastro .chamada,
 .login-card .chamada,
@@ -1035,7 +1028,6 @@ body.quiz-page .footer {         /* só o footer do Quiz ganha empuxo   */
     text-decoration: underline;
 }
 
-/* Centralização visual do bloco de login */
 .login-container .login-card {
     padding-top: 80px;
     padding-bottom: 80px;
@@ -1043,26 +1035,21 @@ body.quiz-page .footer {         /* só o footer do Quiz ganha empuxo   */
     margin-bottom: 60px;
 }
 
-/* Ajuste título dentro da .login-card */
 .login-card h2 {
     text-align: center;
 }
 
-/* Espaçamento refinado login */
 .login-container .login-card {
     padding-top: 42px;
     padding-bottom: 42px;
 }
 
-/* Afasta menos a frase de baixo */
 .login-card .chamada {
     margin-top: 20px;
 }
 
+/* Dashboard */
 
-
-
-/* Dashboard padrão anterior */
 .dashboard-page {
   background-color: #333333;
   color: #ffffff;
@@ -1075,9 +1062,9 @@ body.quiz-page .footer {         /* só o footer do Quiz ganha empuxo   */
   display: flex;
   justify-content: space-between;
   margin: 30px auto;
-  gap: 100px; /* você já testou e gostou */
-  max-width: 1200px; /* aumentamos para ocupar mais espaço */
-  padding: 0 20px; /* menos recuo lateral */
+  gap: 100px; 
+  max-width: 1200px; 
+  padding: 0 20px; 
 }
 
 .kpi-card {
@@ -1097,15 +1084,12 @@ body.quiz-page .footer {         /* só o footer do Quiz ganha empuxo   */
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 }
 
-
-
-/* Gráficos */
 .graficos {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 40px;
-  max-width: 1200px;  /* igual ao .kpis */
-  padding: 0 20px;     /* igual ao .kpis */
+  max-width: 1200px; 
+  padding: 0 20px;  
   margin: 40px auto;
 }
 
@@ -1116,7 +1100,7 @@ body.quiz-page .footer {         /* só o footer do Quiz ganha empuxo   */
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
   height: auto;
 }
-/* ============ DASHBOARD - tamanhos dos gráficos ============ */
+
 .dashboard-page .graficos{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(400px,1fr));
@@ -1132,10 +1116,8 @@ body.quiz-page .footer {         /* só o footer do Quiz ganha empuxo   */
   margin:0 auto;
 }
 
-
-
-
 /* Recomendações */
+
 .recomendacoes {
   margin: 40px auto;
   padding: 20px;
@@ -1149,7 +1131,7 @@ body.quiz-page .footer {         /* só o footer do Quiz ganha empuxo   */
   font-size: 28px;
   margin-bottom: 20px;
   color: #f0b429;
-  text-align: center; /* CENTRALIZADO */
+  text-align: center;
 }
 
 #areaRecomendacoes {
@@ -1171,9 +1153,9 @@ body.quiz-page .footer {         /* só o footer do Quiz ganha empuxo   */
   margin-bottom: 15px;
 }
 .recomendacoes.container {
-  display: flex;          /* continua flex, mas...               */
-  flex-direction: column; /* …agora empilha                       */
-  align-items: center;    /* opcional: centraliza tudo na largura */
+  display: flex;        
+  flex-direction: column; 
+  align-items: center;    
 }
 
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +28,9 @@
 
   <!-- ======= BANNER ======= -->
   <div class="banner">
-    <div class="container"><p>Treino, mente e rotina — uma jornada completa pelo fisiculturismo</p></div>
+    <div class="container">
+      <p>Treino, mente e rotina — uma jornada completa pelo fisiculturismo</p>
+    </div>
   </div>
 
   <!-- ======= PAINEL QUIZ ======= -->
@@ -46,7 +49,8 @@
     </div>
 
     <div id="jogo">
-      <div id="infoQuestao"><span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span> questões.</span></div>
+      <div id="infoQuestao"><span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span
+            id="qtdQuestoes"></span> questões.</span></div>
       <div id="perguntaDaQuestaoAtual"><span id="spanQuestaoExibida"></span></div>
       <div id="infoAlternativas"><span><em>Escolha uma opção dentre as abaixo:</em></span></div>
 
@@ -63,165 +67,179 @@
 
       <div id="botoes">
         <button onclick="submeter()" id="btnSubmeter">Submeter resposta</button>
-        <button onclick="avancar()"  id="btnProx" disabled>Avançar para próxima questão</button>
+        <button onclick="avancar()" id="btnProx" disabled>Avançar para próxima questão</button>
       </div>
     </div>
   </div>
 
   <!-- ======= FOOTER ======= -->
-  <div class="footer"><div class="container"><h4>Sergio Ingegneri © 2025 SpTech 1CCOB</h4></div></div>
+  <div class="footer">
+    <div class="container">
+      <h4>Sergio Ingegneri © 2025 SpTech 1CCOB</h4>
+    </div>
+  </div>
 
-<!-- ========== SCRIPT ========== -->
-<script>
-/* ----- QUESTÕES ----- */
-const listaDeQuestoes = [
-  // ⬇ Treinamento
-  { pergunta:"O método Heavy Duty foca…",               correta:"Certo", area:"Treino" },
-  { pergunta:"Treinar sem descanso…",                   correta:"Errado", area:"Treino" },
-  { pergunta:"Overtraining é…",                         correta:"Certo", area:"Treino" },
+  <!-- ========== SCRIPT ========== -->
+  <script>
+    /* ----- QUESTÕES ----- */
+    const listaDeQuestoes = [
+      // Treinamento
+      { id: 1, pergunta: "O método Heavy Duty foca…", correta: "Certo", area: "Treino" },
+      { id: 2, pergunta: "Treinar sem descanso…", correta: "Errado", area: "Treino" },
+      { id: 3, pergunta: "Overtraining é…", correta: "Certo", area: "Treino" },
 
-  // ⬇ Alimentação
-  { pergunta:"A TMB representa…",                       correta:"Certo", area:"Nutrição" },
-  { pergunta:"1 g de gordura possui 4 kcal.",           correta:"Errado", area:"Nutrição" },
-  { pergunta:"As proteínas auxiliam…",                  correta:"Certo", area:"Nutrição" },
+      // Nutrição
+      { id: 4, pergunta: "A TMB representa…", correta: "Certo", area: "Nutrição" },
+      { id: 5, pergunta: "1 g de gordura = 4 kcal.", correta: "Errado", area: "Nutrição" },
+      { id: 6, pergunta: "As proteínas auxiliam…", correta: "Certo", area: "Nutrição" },
 
-  // ⬇ Complementares
-  { pergunta:"Dieta de hipertrofia costuma…",           correta:"Certo", area:"Complementar" },
-  { pergunta:"É possível queimar gordura localizada…",  correta:"Errado", area:"Complementar" },
-  { pergunta:"O sono libera hormônios…",                correta:"Certo", area:"Complementar" }
-];
+      // Complementar
+      { id: 7, pergunta: "Dieta de hipertrofia costuma…", correta: "Certo", area: "Complementar" },
+      { id: 8, pergunta: "Gordura localizada…", correta: "Errado", area: "Complementar" },
+      { id: 9, pergunta: "O sono libera hormônios…", correta: "Certo", area: "Complementar" }
+    ];
 
 
-/* ----- VARIÁVEIS ----- */
-let numeroDaQuestaoAtual = 0, pontuacaoFinal = 0, certas = 0, erradas = 0;
-const quantidadeDeQuestoes = listaDeQuestoes.length;
-let respostasArr = [];   // <-- NOVO: armazena respostas para o backend
 
-/* ----- VISIBILIDADE ----- */
-function onloadEsconder() {
-  pontuacao.style.display         = "none";
-  jogo.style.display              = "none";
-  pontuacaoFinalJogo.style.display= "none";
-}
+    /* ----- VARIÁVEIS ----- */
+    let numeroDaQuestaoAtual = 0, pontuacaoFinal = 0, certas = 0, erradas = 0;
+    const quantidadeDeQuestoes = listaDeQuestoes.length;
+    let respostasArr = [];   // será enviada ao backend
 
-/* ----- INICIAR QUIZ ----- */
-function iniciarQuiz() {
-  pontuacao.style.display           = "block";
-  pontuacaoDuranteJogo.style.display= "block";
-  pontuacaoFinalJogo.style.display  = "none";
-  jogo.style.display                = "flex";
-  btnIniciarQuiz.style.display      = "none";
+    /* ----- VISIBILIDADE ----- */
+    function onloadEsconder() {
+      pontuacao.style.display = "none";
+      jogo.style.display = "none";
+      pontuacaoFinalJogo.style.display = "none";
+    }
 
-  numeroDaQuestaoAtual = pontuacaoFinal = certas = erradas = 0;
-  respostasArr = [];
-  qtdQuestoes.textContent = quantidadeDeQuestoes;
-  spanCertas.textContent  = spanErradas.textContent = 0;
-  spanPontuacaoFinal.textContent = msgFinal.textContent = "***";
-  msgFinal.className = "";
+    /* ----- INICIAR QUIZ ----- */
+    function iniciarQuiz() {
+      pontuacao.style.display = "block";
+      pontuacaoDuranteJogo.style.display = "block";
+      pontuacaoFinalJogo.style.display = "none";
+      jogo.style.display = "flex";
+      btnIniciarQuiz.style.display = "none";
 
-  preencherHTMLcomQuestaoAtual(0);
-  btnSubmeter.disabled = false; btnProx.disabled = true;
-}
+      numeroDaQuestaoAtual = pontuacaoFinal = certas = erradas = 0;
+      respostasArr = [];
+      qtdQuestoes.textContent = quantidadeDeQuestoes;
+      spanCertas.textContent = spanErradas.textContent = 0;
+      spanPontuacaoFinal.textContent = msgFinal.textContent = "***";
+      msgFinal.className = "";
 
-/* ----- RENDERIZA QUESTÃO ----- */
-function preencherHTMLcomQuestaoAtual(idx) {
-  habilitarAlternativas(true);
-  const q = listaDeQuestoes[idx];
-  spanNumeroDaQuestaoAtual.textContent = idx + 1;
-  spanQuestaoExibida.textContent       = q.pergunta;
-  primeiraOpcao.checked = segundaOpcao.checked = false;
-}
+      preencherHTMLcomQuestaoAtual(0);
+      btnSubmeter.disabled = false; btnProx.disabled = true;
+    }
 
-/* ----- SUBMETER ----- */
-function submeter() {
-  const marcado = document.querySelector('input[name="option"]:checked');
-  if (!marcado) { alert("Escolha uma opção."); return; }
-  btnSubmeter.disabled = true; btnProx.disabled = false;
-  habilitarAlternativas(false);
-  checarResposta(marcado.value);
-}
+    /* ----- RENDERIZA QUESTÃO ----- */
+    function preencherHTMLcomQuestaoAtual(idx) {
+      habilitarAlternativas(true);
+      spanNumeroDaQuestaoAtual.textContent = idx + 1;
+      spanQuestaoExibida.textContent = listaDeQuestoes[idx].pergunta;
+      primeiraOpcao.checked = segundaOpcao.checked = false;
+    }
 
-/* ----- CHECAR RESPOSTA ----- */
-function checarResposta(respUsuario) {
-  const q   = listaDeQuestoes[numeroDaQuestaoAtual];
-  const gab = q.correta;
+    /* ----- SUBMETER ----- */
+    function submeter() {
+      const marcado = document.querySelector('input[name="option"]:checked');
+      if (!marcado) { alert("Escolha uma opção."); return; }
+      btnSubmeter.disabled = true; btnProx.disabled = false;
+      habilitarAlternativas(false);
+      checarResposta(marcado.value);
+    }
 
-  // container que deve receber a cor
-  const containerCorreta = gab         === "Certo" ? "containerOpcaoA" : "containerOpcaoB";
-  const containerErrada  = respUsuario === "Certo" ? "containerOpcaoA" : "containerOpcaoB";
+    /* ----- CHECAR RESPOSTA ----- */
+    function checarResposta(respUsuario) {
+      const q = listaDeQuestoes[numeroDaQuestaoAtual];
+      const gab = q.correta;
 
-  if (respUsuario === gab) {
-    document.getElementById(containerCorreta).classList.add("text-success-with-bg");
-    pontuacaoFinal++; certas++; spanCertas.textContent = certas;
-  } else {
-    document.getElementById(containerErrada ).classList.add("text-danger-with-bg");
-    document.getElementById(containerCorreta).classList.add("text-success-with-bg");
-    erradas++; spanErradas.textContent = erradas;
-  }
+      const containerCorreta = (gab === "Certo") ? containerOpcaoA.id : containerOpcaoB.id;
+      const containerErrada = (respUsuario === "Certo") ? containerOpcaoA.id : containerOpcaoB.id;
 
-  // NOVO: guarda tentativa
-  respostasArr.push({
-      pergunta: q.pergunta,
-      resposta: respUsuario,
-      correta : gab,
-      acertou : (respUsuario === gab)
-  });
+      if (respUsuario === gab) {
+        document.getElementById(containerCorreta).classList.add("text-success-with-bg");
+        pontuacaoFinal++; certas++; spanCertas.textContent = certas;
+      } else {
+        document.getElementById(containerErrada).classList.add("text-danger-with-bg");
+        document.getElementById(containerCorreta).classList.add("text-success-with-bg");
+        erradas++; spanErradas.textContent = erradas;
+      }
 
-  numeroDaQuestaoAtual++;
-  if (numeroDaQuestaoAtual >= quantidadeDeQuestoes) btnProx.textContent = "Ver Resultado";
-}
+      /* === guarda a resposta para enviar ao back === */
+      respostasArr.push({
+        idPergunta: listaDeQuestoes[numeroDaQuestaoAtual].id,  // usa o campo id
+        resposta: respUsuario,
+        correta: gab,
+        acertou: respUsuario === gab ? 1 : 0
+      });
 
-/* ----- AVANÇAR ----- */
-function avancar() {
-  btnProx.disabled = true; btnSubmeter.disabled = false;
-  desmarcarRadioButtons(); limparCores();
-  if (numeroDaQuestaoAtual < quantidadeDeQuestoes) {
-    preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual);
-    if (numeroDaQuestaoAtual === quantidadeDeQuestoes - 1) btnProx.textContent = "Ver Resultado";
-  } else finalizarJogo();
-}
+      numeroDaQuestaoAtual++;
+      if (numeroDaQuestaoAtual >= quantidadeDeQuestoes)
+        btnProx.textContent = "Ver Resultado";
+    }
 
-/* ----- FINALIZAR ----- */
-function finalizarJogo() {
-  jogo.style.display                  = "none";
-  pontuacaoDuranteJogo.style.display  = "none";
-  pontuacaoFinalJogo.style.display    = "block";
+    /* ----- AVANÇAR ----- */
+    function avancar() {
+      btnProx.disabled = true; btnSubmeter.disabled = false;
+      desmarcarRadioButtons(); limparCores();
+      if (numeroDaQuestaoAtual < quantidadeDeQuestoes) {
+        preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual);
+        if (numeroDaQuestaoAtual === quantidadeDeQuestoes - 1)
+          btnProx.textContent = "Ver Resultado";
+      } else finalizarJogo();
+    }
 
-  const pct = pontuacaoFinal / quantidadeDeQuestoes;
-  let msg, cls;
-  if (pct <= 0.3)      { msg = "Parece que você não estudou...";  cls = "text-danger-with-bg"; }
-  else if (pct <= 0.8) { msg = "Pode melhorar na próxima, hein!"; cls = "text-warning-with-bg"; }
-  else                 { msg = "Uau, parabéns!";                  cls = "text-success-with-bg"; }
+    /* ----- FINALIZAR ----- */
+    function finalizarJogo() {
+      jogo.style.display = "none";
+      pontuacaoDuranteJogo.style.display = "none";
+      pontuacaoFinalJogo.style.display = "block";
 
-  msg += "<br> Você acertou " + Math.round(pct*100) + "% das questões.";
-  msgFinal.innerHTML  = msg;
-  msgFinal.className  = cls;
-  spanPontuacaoFinal.textContent = pontuacaoFinal + " de " + quantidadeDeQuestoes;
+      const pct = pontuacaoFinal / quantidadeDeQuestoes;
+      let msg, cls;
+      if (pct <= 0.3) { msg = "Parece que você não estudou..."; cls = "text-danger-with-bg"; }
+      else if (pct <= 0.8) { msg = "Pode melhorar na próxima, hein!"; cls = "text-warning-with-bg"; }
+      else { msg = "Uau, parabéns!"; cls = "text-success-with-bg"; }
 
-  btnProx.disabled = true; btnSubmeter.disabled = true;
+      msg += "<br> Você acertou " + Math.round(pct * 100) + "% das questões.";
+      msgFinal.innerHTML = msg; msgFinal.className = cls;
+      spanPontuacaoFinal.textContent = pontuacaoFinal + " de " + quantidadeDeQuestoes;
 
-  /* ====== NOVO: envia respostas ao backend ====== */
-  fetch("/respostas/cadastrar", {
-      method : "POST",
-      headers: { "Content-Type":"application/json" },
-      body   : JSON.stringify({
-          idUsuario : sessionStorage.ID_USUARIO,
-          respostas : respostasArr
+      btnProx.disabled = true; btnSubmeter.disabled = true;
+
+      fetch("/respostas/cadastrar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          idUsuario: sessionStorage.ID_USUARIO,
+          respostas: respostasArr
+        })
       })
-  }).catch(e => console.error("Falha ao salvar respostas:", e));
-}
+        .then(function () {
+          /* espera 5 s antes de ir para a dashboard */
+          setTimeout(function () {
+            window.location.href = "dashboard.html";
+          }, 5000);
+        })
+        .catch(function (e) {
+          console.error("Falha ao salvar:", e);
+        });
+    }
 
-/* ----- UTILITÁRIAS ----- */
-function habilitarAlternativas(h) {
-  primeiraOpcao.disabled = segundaOpcao.disabled = !h;
-}
-function limparCores() {
-  containerOpcaoA.classList.remove("text-danger-with-bg","text-success-with-bg");
-  containerOpcaoB.classList.remove("text-danger-with-bg","text-success-with-bg");
-}
-function desmarcarRadioButtons() {
-  document.querySelectorAll('input[name=\"option\"]').forEach(r => r.checked = false);
-}
-</script>
+    /* ----- UTILITÁRIAS ----- */
+    function habilitarAlternativas(h) {
+      primeiraOpcao.disabled = segundaOpcao.disabled = !h;
+    }
+    function limparCores() {
+      containerOpcaoA.classList.remove("text-danger-with-bg", "text-success-with-bg");
+      containerOpcaoB.classList.remove("text-danger-with-bg", "text-success-with-bg");
+    }
+    function desmarcarRadioButtons() {
+      var radios = document.querySelectorAll('input[name="option"]');
+      radios.forEach(function (r) { r.checked = false; });
+    }
+  </script>
 </body>
+
 </html>
