@@ -1,8 +1,9 @@
 /* Header */
-
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap'); */
 * {
     margin: 0%;
     padding: 0%;
+    /* font-family: "Roboto", sans-serif;; */
 }
 
 body {
@@ -1158,5 +1159,32 @@ body.quiz-page .footer {
   align-items: center;    
 }
 
+#areaRecomendacoes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
 
+#areaRecomendacoes p {
+  max-width: 860px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 16px;
+  text-align: center;
+  font-weight: 500;
+  width: 100%;
+}
 
+/* Estilos por tipo */
+#areaRecomendacoes .acerto {
+  background-color: #ffd700; 
+}
+
+#areaRecomendacoes .quase {
+  background-color: #ffd700; 
+}
+
+#areaRecomendacoes .erro {
+  background-color: #ffd700; 
+}

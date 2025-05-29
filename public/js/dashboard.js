@@ -4,7 +4,7 @@ var chartRadar, chartBarrasArea, chartPizzaAE, chartBarErros;
 document.addEventListener("DOMContentLoaded", function () {
 
     console.log(sessionStorage.ID_USUARIO);
-    
+
     fetch("/dashboard/dados/" + sessionStorage.ID_USUARIO)
         .then(function (resp) { return resp.json(); })
         .then(function (dados) {
@@ -32,12 +32,53 @@ document.addEventListener("DOMContentLoaded", function () {
                 complE: getArea("Complementar", "erros"),
 
                 topErros: topErros.map(function (e) {
-                return { texto: e.titulo, erros: Number(e.erros) };
+                    return { texto: e.titulo, erros: Number(e.erros) };
                 }),
                 total_usuarios: Number(totalRow.acertos)
             };
             preencherKPIs(d);
             gerarGraficos(d);
+            // ========== RECOMENDAÇÕES POR ÁREA ==========
+            var msg = "";
+
+            // Recomendação para Treino
+            var area = document.getElementById("areaRecomendacoes");
+            area.innerHTML = "";
+
+            // Helper para criar bloco com classe
+            function criarRecomendacao(texto, classe) {
+                var bloco = document.createElement("p");
+                bloco.innerHTML = texto;
+                bloco.classList.add(classe);
+                area.appendChild(bloco);
+            }
+
+            // TREINO
+            if (d.treinoA === 3) {
+                criarRecomendacao("✅ Parabéns! Você gabaritou as perguntas sobre <b>Treino</b>.", "acerto");
+            } else if (d.treinoA === 2) {
+                criarRecomendacao("🟡 Quase lá! Faltou apenas uma para gabaritar <b>Treino</b>.", "quase");
+            } else {
+                criarRecomendacao("❌ Revise seus conhecimentos na área de <b>Treino</b>.", "erro");
+            }
+
+            // NUTRIÇÃO
+            if (d.nutricaoA === 3) {
+                criarRecomendacao("✅ Parabéns! Você gabaritou as perguntas sobre <b>Nutrição</b>.", "acerto");
+            } else if (d.nutricaoA === 2) {
+                criarRecomendacao("🟡 Quase lá! Faltou apenas uma para gabaritar <b>Nutrição</b>.", "quase");
+            } else {
+                criarRecomendacao("❌ Revise seus conhecimentos na área de <b>Nutrição</b>.", "erro");
+            }
+
+            // COMPLEMENTAR
+            if (d.complA === 3) {
+                criarRecomendacao("✅ Parabéns! Você gabaritou as perguntas sobre <b>Conteúdo Complementar</b>.", "acerto");
+            } else if (d.complA === 2) {
+                criarRecomendacao("🟡 Quase lá! Faltou apenas uma para gabaritar <b>Conteúdo Complementar</b>.", "quase");
+            } else {
+                criarRecomendacao("❌ Revise seus conhecimentos na área de <b>Conteúdo Complementar</b>.", "erro");
+            }
 
         })
         .catch(function (e) {
@@ -148,16 +189,24 @@ function barrasOptions() {
         plugins: legendWhite().plugins
     };
 }
+
 function radarOptions() {
     return {
         plugins: legendWhite().plugins,
         scales: {
             r: {
+                min: 0,
+                max: 3, // ✅ valor máximo fixo para 9 questões
                 pointLabels: { color: "white" },
                 grid: { color: "gray" },
                 angleLines: { color: "gray" },
-                ticks: { color: "white", backdropColor: "transparent" }
+                ticks: {
+                    stepSize: 1,
+                    color: "white",
+                    backdropColor: "transparent"
+                }
             }
         }
     };
 }
+

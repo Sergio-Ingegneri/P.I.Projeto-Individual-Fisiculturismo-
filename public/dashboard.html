@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BodyPedia | Dashboard</title>
 
-  <link rel="icon" href="../public/assets/imgs/header_logo.png">
+  <link rel="icon" href="assets/imgs/header_logo.png">
   <link rel="stylesheet" href="css/style.css">
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -17,7 +17,7 @@
   <header class="header">
     <div class="container">
       <div class="imagem">
-        <img src="../public/assets/imgs/header_logo.png" id="logo_header" alt="Logo BodyPedia">
+        <img src="assets/imgs/header_logo.png" id="logo_header" alt="Logo BodyPedia">
         <h1 class="titulo">BodyPedia</h1>
       </div>
       <ul class="navbar">
@@ -47,7 +47,7 @@
     </div>
 
     <div class="grafico">
-      <h2>Erros por Área</h2>   <!-- 🔸 título alterado -->
+      <h2>Erros por Área</h2> 
       <canvas id="graficoBarrasBlocos"></canvas>
     </div>
 
@@ -63,11 +63,12 @@
   </section>
 
 
-  <!-- (opcional) Recomendações -->
-  <section class="container recomendacoes">
-    <h2>📌 Recomendação</h2>
-    <p id="recomendacao">Carregando recomendação...</p>
-  </section>
+<section class="container recomendacoes">
+  <h2>📌 Recomendação</h2>
+  <div id="areaRecomendacoes">
+    <p>Carregando recomendação...</p>
+  </div>
+</section>
 
   <script src="js/dashboard.js"></script>
 </body>
