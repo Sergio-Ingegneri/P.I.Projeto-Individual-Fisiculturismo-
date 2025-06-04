@@ -1,10 +1,7 @@
 var express = require("express");
-var router  = express.Router();
-
+var router = express.Router();
 var respostaController = require("../controllers/respostaController");
 
-router.post("/cadastrar", function (req, res) {
-    respostaController.cadastrar(req, res);
-});
+router.post("/cadastrar", respostaController.cadastrar);
 
 module.exports = router;

@@ -1,124 +1,150 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BodyPedia | Home</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="assets/imgs/header_logo.png" />
-
+  <meta charset="UTF-8" />
+  <title>BodyPedia | TMB</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="assets/imgs/header_logo.png" />
 </head>
-
 <body>
-    <!-- Header -->
-    <div class="header">
-        <div class="container">
-            <div class="imagem">
-                <img src="assets/imgs/header_logo.png" id="logo_header">
-                <h1 class="titulo">BodyPedia</h1>
-            </div>
-            <ul class="navbar">
-                <li><a href="index.html">Home 🏠</a></li>
-                <li><a href="fisiculturistas.html">Fisiculturistas 🏋️‍♀️</a></li>
-                <li class="agora"><a href="#">TMB 📊</a></li>
-                <li><a href="blog.html">Blog 📖</a></li>
+
+  <div class="header">
+    <div class="container">
+      <div class="imagem">
+        <img src="assets/imgs/header_logo.png" id="logo_header">
+        <h1 class="titulo">BodyPedia</h1>
+      </div>
+      <ul class="navbar">
+        <li><a href="index.html">Home 🏠</a></li>
+        <li><a href="fisiculturistas.html">Fisiculturistas 🏋️‍♀️</a></li>
+        <li class="agora"><a href="#">TMB 📊</a></li>
+        <li><a href="blog.html">Blog 📖</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="banner">
+    <div class="container">
+      <p>Treino, mente e rotina — uma jornada completa pelo fisiculturismo</p>
+    </div>
+  </div>
+
+  <div class="container-tmb">
+    <div class="calc-card">
+      <h2>Calculadora de Taxa Metabólica Basal</h2>
+
+      <div class="selecao">
+        <label>Sexo:</label>
+        <div class="radios">
+          <label>
+            <input type="radio" name="sexo" value="masculino" id="sexo_m">
+            Masculino
+          </label>
+          <label>
+            <input type="radio" name="sexo" value="feminino" id="sexo_f">
+            Feminino
+          </label>
+        </div>
+      </div>
+
+      <div class="selecao">
+        <label>Biótipo:</label>
+        <div class="radios">
+          <label>
+            <input type="radio" name="biotipo" value="ectomorfo" id="bio_e">
+            Ectomorfo
+          </label>
+          <label>
+            <input type="radio" name="biotipo" value="mesomorfo" id="bio_m">
+            Mesomorfo
+          </label>
+          <label>
+            <input type="radio" name="biotipo" value="endomorfo" id="bio_en">
+            Endomorfo
+          </label>
+        </div>
+
+        <div class="selecao">
+          <div class="biotipo-info">
+            <p>Como escolher seu biótipo:</p>
+            <ul>
+              <li><strong>Ectomorfo:</strong> Tendência natural a ser magro (Resultado padrão do cálculo)</li>
+              <li><strong>Mesomorfo:</strong> Corpo atlético com facilidade para ganhar músculos (-200Kcal)</li>
+              <li><strong>Endomorfo:</strong> Tendência a acumular gordura corporal (-400Kcal)</li>
             </ul>
+          </div>
         </div>
+      </div>
 
+      <div class="selecao">
+        <label for="altura">Altura (cm):</label>
+        <input type="number" id="altura">
+      </div>
+
+      <div class="selecao">
+        <label for="peso">Peso (kg):</label>
+        <input type="number" id="peso">
+      </div>
+
+      <div class="selecao">
+        <label for="idade">Idade (anos):</label>
+        <input type="number" id="idade">
+      </div>
+
+      <button onclick="calcularTMB()">Calcular TMB</button>
+
+      <div id="resultado" class="resultado-box"></div>
+
+      <div class="calculo-info">
+        <h3>Fórmulas Utilizadas:</h3>
+        <p>Homens: <em>TMB = 66 + (13.7 x Peso) + (5 x Altura) - (6.8 x Idade)</em></p>
+        <p>Mulheres: <em>TMB = 665 + (9.6 x Peso) + (1.8 x Altura) - (4.7 x Idade)</em></p>
+      </div>
     </div>
+  </div>
 
-    <!-- Banner -->
-    <div class="banner">
-        <div class="container">
-            <p>Treino, mente e rotina — uma jornada completa pelo fisiculturismo</p>
-        </div>
+  <div class="footer">
+    <div class="container">
+      <h4>Sergio Ingegneri © 2025 SpTech 1CCOB</h4>
     </div>
+  </div>
 
-    <!-- Conteúdo da Calculadora TMB -->
-    <div class="container-tmb">
-        <div class="calc-card">
-            <h2>Calculadora de Taxa Metabólica Basal</h2>
+  <script>
+    function calcularTMB() {
+      var sexo = '';
+      if (sexo_m.checked) sexo = 'masculino';
+      if (sexo_f.checked) sexo = 'feminino';
 
-            <div class="selecao">
-                <label>Sexo:</label>
-                <div class="radios">
-                    <label>
-                        <input type="radio" name="sexo" value="masculino">
-                        Masculino
-                    </label>
-                    <label>
-                        <input type="radio" name="sexo" value="feminino">
-                        Feminino
-                    </label>
-                </div>
-            </div>
+      var biotipo = '';
+      if (bio_e.checked) biotipo = 'ectomorfo';
+      if (bio_m.checked) biotipo = 'mesomorfo';
+      if (bio_en.checked) biotipo = 'endomorfo';
 
-            <div class="selecao">
-                <label>Biótipo:</label>
-                <div class="radios">
-                    <label>
-                        <input type="radio" name="biotipo" value="ectomorfo">
-                        Ectomorfo
-                    </label>
-                    <label>
-                        <input type="radio" name="biotipo" value="mesomorfo">
-                        Mesomorfo
-                    </label>
-                    <label>
-                        <input type="radio" name="biotipo" value="endomorfo">
-                        Endomorfo
-                    </label>
-                </div>
-                <div class="selecao">
-                    <div class="biotipo-info">
-                        <p>Como escolher seu biótipo:</p>
-                        <ul>
-                            <li><strong>Ectomorfo:</strong> Tendência natural a ser magro (Resultado padrão do cálculo)
-                            </li>
-                            <li><strong>Mesomorfo:</strong> Corpo atlético com facilidade para ganhar músculos (-200Kcal
-                                do resultado padrão)</li>
-                            <li><strong>Endomorfo:</strong> Tendência a acumular gordura corporal (-400Kcal do resultado
-                                padrão)</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+      var a = parseFloat(altura.value);
+      var p = parseFloat(peso.value);
+      var i = parseInt(idade.value);
 
-            <div class="selecao">
-                <label for="altura">Altura (cm):</label>
-                <input type="number" id="altura">
-            </div>
+      if (!sexo || !biotipo || isNaN(a) || isNaN(p) || isNaN(i)) {
+        alert('Preencha todos os campos corretamente.');
+        return;
+      }
 
-            <div class="selecao">
-                <label for="peso">Peso (kg):</label>
-                <input type="number" id="peso">
-            </div>
+      var tmb = 0;
+      if (sexo == 'masculino') {
+        tmb = 66 + (13.7 * p) + (5 * a) - (6.8 * i);
+      } else {
+        tmb = 665 + (9.6 * p) + (1.8 * a) - (4.7 * i);
+      }
 
-            <div class="selecao">
-                <label for="idade">Idade (anos):</label>
-                <input type="number" id="idade">
-            </div>
+      if (biotipo == 'mesomorfo') {
+        tmb -= 200;
+      } else if (biotipo == 'endomorfo') {
+        tmb -= 400;
+      }
 
-            <button onclick="calcularTMB()">Calcular TMB</button>
-
-            <div id="resultado" class="resultado-box"></div>
-            <div class="calculo-info">
-                <h3>Fórmulas Utilizadas:</h3>
-                <p>Homens: <em>TMB = 66 + (13.7 x Peso) + (5 x Altura) - (6.8 x Idade)</em></p>
-                <p>Mulheres: <em>TMB = 665 + (9.6 x Peso) + (1.8 x Altura) - (4.7 x Idade)</em></p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer">
-        <div class="container">
-            <h4>Sergio Ingegneri © 2025 SpTech 1CCOB</h4>
-        </div>
-    </div>
-    <script src="js/tmb.js"></script>
+      resultado.innerHTML = 'Sua taxa metabólica basal é de: <strong>' + tmb.toFixed(2) + ' calorias</strong>';
+      resultado.style.display = 'block';
+    }
+  </script>
 </body>
-
 </html>

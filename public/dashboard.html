@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BodyPedia | Dashboard</title>
 
-  <link rel="icon" href="assets/imgs/header_logo.png">
-  <link rel="stylesheet" href="css/style.css">
-
+  <link rel="icon" href="assets/imgs/header_logo.png" />
+  <link rel="stylesheet" href="css/style.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body class="dashboard-page">
   <!-- HEADER -->
-  <header class="header">
+  <div class="header">
     <div class="container">
       <div class="imagem">
-        <img src="assets/imgs/header_logo.png" id="logo_header" alt="Logo BodyPedia">
+        <img src="assets/imgs/header_logo.png" id="logo_header" alt="Logo BodyPedia" />
         <h1 class="titulo">BodyPedia</h1>
       </div>
       <ul class="navbar">
@@ -27,49 +26,139 @@
         <li><a href="blog.html">Blog 📖</a></li>
       </ul>
     </div>
-  </header>
+  </div>
 
   <!-- BANNER -->
-  <section class="banner"><div class="container"><p>Treino, mente e rotina — uma jornada completa pelo fisiculturismo</p></div></section>
+  <div class="banner">
+    <div class="container">
+      <p>Treino, mente e rotina — uma jornada completa pelo fisiculturismo</p>
+    </div>
+  </div>
 
   <!-- KPIs -->
-  <section class="kpis container">
+  <div class="kpis container">
     <div class="kpi-card" id="kpiUsuarios">👥 Total de usuários: ...</div>
-    <div class="kpi-card" id="kpiPontuacao">✅ Pontuação: ...</div>
     <div class="kpi-card" id="kpiClassificacao">🎓 Classificação: ...</div>
-  </section>
+  </div>
 
   <!-- GRÁFICOS -->
-  <section class="graficos container">
-    <div class="grafico">
+  <div class="graficos container">
+    <div class="grafico-item grafico">
       <h2>Radar de Desempenho</h2>
       <canvas id="graficoRadar"></canvas>
     </div>
 
-    <div class="grafico">
-      <h2>Erros por Área</h2> 
-      <canvas id="graficoBarrasBlocos"></canvas>
-    </div>
-
-    <div class="grafico">
+    <div class="grafico-item grafico">
       <h2>Acertos × Erros</h2>
       <canvas id="graficoPizzaAE"></canvas>
     </div>
-
-    <div class="grafico">
-      <h2>Perguntas que Mais Erram (Top 5)</h2>
-      <canvas id="graficoBarErros"></canvas>
-    </div>
-  </section>
-
-
-<section class="container recomendacoes">
-  <h2>📌 Recomendação</h2>
-  <div id="areaRecomendacoes">
-    <p>Carregando recomendação...</p>
   </div>
-</section>
 
-  <script src="js/dashboard.js"></script>
+  <div class="footer">
+    <div class="container">
+      <h4>Sergio Ingegneri © 2025 SpTech 1CCOB</h4>
+    </div>
+  </div>
+  
+  <script>
+    var chartRadar;
+    var chartPizzaAE;
+    var idUsuario = sessionStorage.ID_USUARIO;
+
+    fetch("/dashboard/totalUsuarios")
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (dados) {
+        var total = dados[0].total;
+        kpiUsuarios.innerHTML = "👥 Total de usuários: " + total;
+      });
+
+    fetch("/dashboard/kpi/" + idUsuario)
+  .then(function (res) {
+    return res.json();
+  })
+  .then(function (dados) {
+    var acertos = parseInt(dados[0].acertos);
+    var erros = parseInt(dados[0].erros);
+    var total = acertos + erros;
+    var pct = total > 0 ? Math.round((acertos / total) * 100) : 0;
+
+    var nivel = "Iniciante";
+    if (pct >= 70) {
+      nivel = "Avançado";
+    } else if (pct >= 40) {
+      nivel = "Intermediário";
+    }
+
+    kpiClassificacao.innerHTML = "🎓 Classificação: " + nivel;
+
+    // Gráfico de pizza
+    chartPizzaAE = new Chart(graficoPizzaAE, {
+      type: "pie",
+      data: {
+        labels: ["Acertos", "Erros"],
+        datasets: [{
+          data: [acertos, erros],
+          backgroundColor: [
+            "rgba(54, 162, 235, 0.6)",
+            "rgba(255, 99, 132, 0.6)"
+          ],
+          borderColor: [
+            "rgb(54, 162, 235)",
+            "rgb(255, 99, 132)"
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        plugins: { legend: { labels: { color: "white" } } }
+      }
+    });
+  });
+
+    fetch("/dashboard/radar/" + idUsuario)
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (dados) {
+        var treino = 0, nutricao = 0, compl = 0;
+
+        for (var i = 0; i < dados.length; i++) {
+          if (dados[i].area === "Treino") treino = dados[i].acertos;
+          if (dados[i].area === "Nutrição") nutricao = dados[i].acertos;
+          if (dados[i].area === "Complementar") compl = dados[i].acertos;
+        }
+
+        chartRadar = new Chart(graficoRadar, {
+          type: "radar",
+          data: {
+            labels: ["Treino", "Nutrição", "Complementar"],
+            datasets: [{
+              label: "Acertos",
+              data: [treino, nutricao, compl],
+              borderWidth: 2
+            }]
+          },
+          options: {
+            plugins: { legend: { labels: { color: "white" } } },
+            scales: {
+              r: {
+                min: 0,
+                max: 3,
+                pointLabels: { color: "white" },
+                grid: { color: "gray" },
+                angleLines: { color: "gray" },
+                ticks: {
+                  stepSize: 1,
+                  color: "white",
+                  backdropColor: "transparent"
+                }
+              }
+            }
+          }
+        });
+      });
+  </script>
 </body>
 </html>

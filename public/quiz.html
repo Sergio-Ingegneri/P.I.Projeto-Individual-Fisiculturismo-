@@ -2,19 +2,18 @@
 <html lang="pt-br">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BodyPedia | Quiz</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="assets/imgs/header_logo.png">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="assets/imgs/header_logo.png" />
 </head>
 
 <body class="quiz-page" onload="onloadEsconder()">
-  <!-- ======= HEADER ======= -->
   <div class="header">
     <div class="container">
       <div class="imagem">
-        <img src="assets/imgs/header_logo.png" id="logo_header" alt="Logo BodyPedia">
+        <img src="assets/imgs/header_logo.png" id="logo_header" alt="Logo BodyPedia" />
         <h1 class="titulo">BodyPedia</h1>
       </div>
       <ul class="navbar">
@@ -26,14 +25,12 @@
     </div>
   </div>
 
-  <!-- ======= BANNER ======= -->
   <div class="banner">
     <div class="container">
       <p>Treino, mente e rotina — uma jornada completa pelo fisiculturismo</p>
     </div>
   </div>
 
-  <!-- ======= PAINEL QUIZ ======= -->
   <div id="pontuacaoEJogo">
     <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
 
@@ -72,141 +69,178 @@
     </div>
   </div>
 
-  <!-- ======= FOOTER ======= -->
   <div class="footer">
     <div class="container">
       <h4>Sergio Ingegneri © 2025 SpTech 1CCOB</h4>
     </div>
   </div>
 
-  <!-- ========== SCRIPT ========== -->
   <script>
-    /* ----- QUESTÕES ----- */
+
     const listaDeQuestoes = [
-      // Treinamento
-      { id: 1, pergunta: "O método Heavy Duty foca…", correta: "Certo", area: "Treino" },
-      { id: 2, pergunta: "Treinar sem descanso…", correta: "Errado", area: "Treino" },
-      { id: 3, pergunta: "Overtraining é…", correta: "Certo", area: "Treino" },
-
-      // Nutrição
-      { id: 4, pergunta: "A TMB representa…", correta: "Certo", area: "Nutrição" },
-      { id: 5, pergunta: "1 g de gordura = 4 kcal.", correta: "Errado", area: "Nutrição" },
-      { id: 6, pergunta: "As proteínas auxiliam…", correta: "Certo", area: "Nutrição" },
-
-      // Complementar
-      { id: 7, pergunta: "Dieta de hipertrofia costuma…", correta: "Certo", area: "Complementar" },
-      { id: 8, pergunta: "Gordura localizada…", correta: "Errado", area: "Complementar" },
-      { id: 9, pergunta: "O sono libera hormônios…", correta: "Certo", area: "Complementar" }
+      { id: 1, pergunta: "O método Heavy Duty foca em poucas séries até a falha total", correta: "Certo", area: "Treino" },
+      { id: 2, pergunta: "Treinar sem descanso melhora os resultados de hipertrofia", correta: "Errado", area: "Treino" },
+      { id: 3, pergunta: "Overtraining é o excesso de treinos sem recuperação adequada", correta: "Certo", area: "Treino" },
+      { id: 4, pergunta: "A TMB representa as calorias gastas em repouso pelo corpo", correta: "Certo", area: "Nutrição" },
+      { id: 5, pergunta: "1 grama de gordura possui aproximadamente 4 kcal", correta: "Errado", area: "Nutrição" },
+      { id: 6, pergunta: "As proteínas auxiliam na construção e recuperação muscular", correta: "Certo", area: "Nutrição" },
+      { id: 7, pergunta: "Uma dieta de hipertrofia costuma ter proteína moderada e carboidratos elevados", correta: "Certo", area: "Complementar" },
+      { id: 8, pergunta: "É possível eliminar gordura localizada apenas com exercícios de uma região", correta: "Errado", area: "Complementar" },
+      { id: 9, pergunta: "O sono libera hormônios importantes para recuperação e crescimento muscular", correta: "Certo", area: "Complementar" }
     ];
 
-
-
-    /* ----- VARIÁVEIS ----- */
-    let numeroDaQuestaoAtual = 0, pontuacaoFinal = 0, certas = 0, erradas = 0;
+    let numeroDaQuestaoAtual = 0;
+    let pontuacaoFinal = 0;
+    let certas = 0;
+    let erradas = 0;
+    let respostasArr = [];
     const quantidadeDeQuestoes = listaDeQuestoes.length;
-    let respostasArr = [];   // será enviada ao backend
 
-    /* ----- VISIBILIDADE ----- */
     function onloadEsconder() {
       pontuacao.style.display = "none";
       jogo.style.display = "none";
       pontuacaoFinalJogo.style.display = "none";
     }
 
-    /* ----- INICIAR QUIZ ----- */
     function iniciarQuiz() {
       pontuacao.style.display = "block";
-      pontuacaoDuranteJogo.style.display = "block";
-      pontuacaoFinalJogo.style.display = "none";
       jogo.style.display = "flex";
       btnIniciarQuiz.style.display = "none";
 
-      numeroDaQuestaoAtual = pontuacaoFinal = certas = erradas = 0;
-      respostasArr = [];
-      qtdQuestoes.textContent = quantidadeDeQuestoes;
-      spanCertas.textContent = spanErradas.textContent = 0;
-      spanPontuacaoFinal.textContent = msgFinal.textContent = "***";
+      qtdQuestoes.innerHTML = quantidadeDeQuestoes;
+      spanCertas.innerHTML = 0;
+      spanErradas.innerHTML = 0;
+      spanPontuacaoFinal.innerHTML = "***";
+      msgFinal.innerHTML = "***";
       msgFinal.className = "";
 
-      preencherHTMLcomQuestaoAtual(0);
-      btnSubmeter.disabled = false; btnProx.disabled = true;
+      numeroDaQuestaoAtual = 0;
+      pontuacaoFinal = 0;
+      certas = 0;
+      erradas = 0;
+      respostasArr = [];
+
+      preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual);
+      btnSubmeter.disabled = false;
+      btnProx.disabled = true;
     }
 
-    /* ----- RENDERIZA QUESTÃO ----- */
-    function preencherHTMLcomQuestaoAtual(idx) {
+    function preencherHTMLcomQuestaoAtual(indice) {
       habilitarAlternativas(true);
-      spanNumeroDaQuestaoAtual.textContent = idx + 1;
-      spanQuestaoExibida.textContent = listaDeQuestoes[idx].pergunta;
-      primeiraOpcao.checked = segundaOpcao.checked = false;
+      spanNumeroDaQuestaoAtual.innerHTML = indice + 1;
+      spanQuestaoExibida.innerHTML = listaDeQuestoes[indice].pergunta;
+      primeiraOpcao.checked = false;
+      segundaOpcao.checked = false;
     }
 
-    /* ----- SUBMETER ----- */
     function submeter() {
-      const marcado = document.querySelector('input[name="option"]:checked');
-      if (!marcado) { alert("Escolha uma opção."); return; }
-      btnSubmeter.disabled = true; btnProx.disabled = false;
-      habilitarAlternativas(false);
-      checarResposta(marcado.value);
-    }
+      var respostaUsuario = "";
 
-    /* ----- CHECAR RESPOSTA ----- */
-    function checarResposta(respUsuario) {
-      const q = listaDeQuestoes[numeroDaQuestaoAtual];
-      const gab = q.correta;
-
-      const containerCorreta = (gab === "Certo") ? containerOpcaoA.id : containerOpcaoB.id;
-      const containerErrada = (respUsuario === "Certo") ? containerOpcaoA.id : containerOpcaoB.id;
-
-      if (respUsuario === gab) {
-        document.getElementById(containerCorreta).classList.add("text-success-with-bg");
-        pontuacaoFinal++; certas++; spanCertas.textContent = certas;
+      if (primeiraOpcao.checked) {
+        respostaUsuario = "Certo";
+      } else if (segundaOpcao.checked) {
+        respostaUsuario = "Errado";
       } else {
-        document.getElementById(containerErrada).classList.add("text-danger-with-bg");
-        document.getElementById(containerCorreta).classList.add("text-success-with-bg");
-        erradas++; spanErradas.textContent = erradas;
+        alert("Escolha uma opção.");
+        return;
       }
 
-      /* === guarda a resposta para enviar ao back === */
+      btnSubmeter.disabled = true;
+      btnProx.disabled = false;
+      habilitarAlternativas(false);
+
+      checarResposta(respostaUsuario);
+    }
+
+    function checarResposta(respostaUsuario) {
+      var questao = listaDeQuestoes[numeroDaQuestaoAtual];
+      var gabarito = questao.correta;
+
+      if (respostaUsuario == "Certo" && gabarito == "Certo") {
+        containerOpcaoA.className = "option-container text-success-with-bg";
+        pontuacaoFinal = pontuacaoFinal + 1;
+        certas = certas + 1;
+        spanCertas.innerHTML = certas;
+      }
+
+      if (respostaUsuario == "Errado" && gabarito == "Errado") {
+        containerOpcaoB.className = "option-container text-success-with-bg";
+        pontuacaoFinal = pontuacaoFinal + 1;
+        certas = certas + 1;
+        spanCertas.innerHTML = certas;
+      }
+
+      if (respostaUsuario == "Certo" && gabarito == "Errado") {
+        containerOpcaoA.className = "option-container text-danger-with-bg";
+        containerOpcaoB.className = "option-container text-success-with-bg";
+        erradas = erradas + 1;
+        spanErradas.innerHTML = erradas;
+      }
+
+      if (respostaUsuario == "Errado" && gabarito == "Certo") {
+        containerOpcaoB.className = "option-container text-danger-with-bg";
+        containerOpcaoA.className = "option-container text-success-with-bg";
+        erradas = erradas + 1;
+        spanErradas.innerHTML = erradas;
+      }
+
       respostasArr.push({
-        idPergunta: listaDeQuestoes[numeroDaQuestaoAtual].id,  // usa o campo id
-        resposta: respUsuario,
-        correta: gab,
-        acertou: respUsuario === gab ? 1 : 0
+        idPergunta: questao.id,
+        resposta: respostaUsuario,
+        correta: gabarito,
+        acertou: (respostaUsuario == gabarito ? 1 : 0)
       });
 
-      numeroDaQuestaoAtual++;
-      if (numeroDaQuestaoAtual >= quantidadeDeQuestoes)
-        btnProx.textContent = "Ver Resultado";
+      numeroDaQuestaoAtual = numeroDaQuestaoAtual + 1;
+
+      if (numeroDaQuestaoAtual >= quantidadeDeQuestoes) {
+        btnProx.innerHTML = "Ver Resultado";
+      }
     }
 
-    /* ----- AVANÇAR ----- */
     function avancar() {
-      btnProx.disabled = true; btnSubmeter.disabled = false;
-      desmarcarRadioButtons(); limparCores();
+      btnProx.disabled = true;
+      btnSubmeter.disabled = false;
+      desmarcarRadioButtons();
+      limparCores();
+
       if (numeroDaQuestaoAtual < quantidadeDeQuestoes) {
         preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual);
-        if (numeroDaQuestaoAtual === quantidadeDeQuestoes - 1)
-          btnProx.textContent = "Ver Resultado";
-      } else finalizarJogo();
+        if (numeroDaQuestaoAtual == quantidadeDeQuestoes - 1) {
+          btnProx.innerHTML = "Ver Resultado";
+        }
+      } else {
+        finalizarJogo();
+      }
     }
 
-    /* ----- FINALIZAR ----- */
     function finalizarJogo() {
       jogo.style.display = "none";
       pontuacaoDuranteJogo.style.display = "none";
       pontuacaoFinalJogo.style.display = "block";
 
-      const pct = pontuacaoFinal / quantidadeDeQuestoes;
-      let msg, cls;
-      if (pct <= 0.3) { msg = "Parece que você não estudou..."; cls = "text-danger-with-bg"; }
-      else if (pct <= 0.8) { msg = "Pode melhorar na próxima, hein!"; cls = "text-warning-with-bg"; }
-      else { msg = "Uau, parabéns!"; cls = "text-success-with-bg"; }
+      var porcentagem = pontuacaoFinal / quantidadeDeQuestoes;
+      var textoFinal = "";
+      var corFinal = "";
 
-      msg += "<br> Você acertou " + Math.round(pct * 100) + "% das questões.";
-      msgFinal.innerHTML = msg; msgFinal.className = cls;
-      spanPontuacaoFinal.textContent = pontuacaoFinal + " de " + quantidadeDeQuestoes;
+      if (porcentagem <= 0.3) {
+        textoFinal = "Parece que você não estudou...";
+        corFinal = "text-danger-with-bg";
+      } else if (porcentagem <= 0.8) {
+        textoFinal = "Pode melhorar na próxima, hein!";
+        corFinal = "text-warning-with-bg";
+      } else {
+        textoFinal = "Uau, parabéns!";
+        corFinal = "text-success-with-bg";
+      }
 
-      btnProx.disabled = true; btnSubmeter.disabled = true;
+      textoFinal = textoFinal + "<br> Você acertou " + Math.round(porcentagem * 100) + "% das questões.";
+      msgFinal.innerHTML = textoFinal;
+      msgFinal.className = corFinal;
+      spanPontuacaoFinal.innerHTML = pontuacaoFinal + " de " + quantidadeDeQuestoes;
+
+      btnProx.disabled = true;
+      btnSubmeter.disabled = true;
 
       fetch("/respostas/cadastrar", {
         method: "POST",
@@ -217,7 +251,6 @@
         })
       })
         .then(function () {
-          /* espera 5 s antes de ir para a dashboard */
           setTimeout(function () {
             window.location.href = "dashboard.html";
           }, 5000);
@@ -227,17 +260,24 @@
         });
     }
 
-    /* ----- UTILITÁRIAS ----- */
-    function habilitarAlternativas(h) {
-      primeiraOpcao.disabled = segundaOpcao.disabled = !h;
+    function habilitarAlternativas(habilitar) {
+      if (habilitar == true) {
+        primeiraOpcao.disabled = false;
+        segundaOpcao.disabled = false;
+      } else {
+        primeiraOpcao.disabled = true;
+        segundaOpcao.disabled = true;
+      }
     }
+
     function limparCores() {
-      containerOpcaoA.classList.remove("text-danger-with-bg", "text-success-with-bg");
-      containerOpcaoB.classList.remove("text-danger-with-bg", "text-success-with-bg");
+      containerOpcaoA.className = "option-container";
+      containerOpcaoB.className = "option-container";
     }
+
     function desmarcarRadioButtons() {
-      var radios = document.querySelectorAll('input[name="option"]');
-      radios.forEach(function (r) { r.checked = false; });
+      primeiraOpcao.checked = false;
+      segundaOpcao.checked = false;
     }
   </script>
 </body>

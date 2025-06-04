@@ -1,14 +1,13 @@
 var database = require("../database/config");
 
-/* grava 1 linha em tabela 'resposta' */
-function cadastrar(idUsuario, fkPergunta, respUsr, respCorreta, acertou){
-    var sql = `
-        INSERT INTO resposta
-            (fk_usuario, fk_pergunta, resposta_usuario, resposta_correta, acertou)
-        VALUES
-            (${idUsuario}, ${fkPergunta}, '${respUsr}', '${respCorreta}', ${acertou});
-    `;
-    return database.executar(sql);
+function cadastrar(idUsuario, fkPergunta, respUsuario, respCorreta, acertou) {
+  var instrucaoSql = `
+    insert into resposta (fk_usuario, fk_pergunta, resposta_usuario, resposta_correta, acertou)
+    values (${idUsuario}, ${fkPergunta}, '${respUsuario}', '${respCorreta}', ${acertou});
+  `;
+  return database.executar(instrucaoSql);
 }
 
-module.exports = { cadastrar };
+module.exports = {
+  cadastrar
+};
