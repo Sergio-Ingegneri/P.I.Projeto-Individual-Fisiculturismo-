@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -12,7 +13,7 @@
 </head>
 
 <body class="dashboard-page">
-  <!-- HEADER -->
+
   <div class="header">
     <div class="container">
       <div class="imagem">
@@ -28,20 +29,17 @@
     </div>
   </div>
 
-  <!-- BANNER -->
   <div class="banner">
     <div class="container">
       <p>Treino, mente e rotina — uma jornada completa pelo fisiculturismo</p>
     </div>
   </div>
 
-  <!-- KPIs -->
   <div class="kpis container">
     <div class="kpi-card" id="kpiUsuarios">👥 Total de usuários: ...</div>
     <div class="kpi-card" id="kpiClassificacao">🎓 Classificação: ...</div>
   </div>
 
-  <!-- GRÁFICOS -->
   <div class="graficos container">
     <div class="grafico-item grafico">
       <h2>Radar de Desempenho</h2>
@@ -59,7 +57,7 @@
       <h4>Sergio Ingegneri © 2025 SpTech 1CCOB</h4>
     </div>
   </div>
-  
+
   <script>
     var chartRadar;
     var chartPizzaAE;
@@ -75,47 +73,50 @@
       });
 
     fetch("/dashboard/kpi/" + idUsuario)
-  .then(function (res) {
-    return res.json();
-  })
-  .then(function (dados) {
-    var acertos = parseInt(dados[0].acertos);
-    var erros = parseInt(dados[0].erros);
-    var total = acertos + erros;
-    var pct = total > 0 ? Math.round((acertos / total) * 100) : 0;
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (dados) {
+        var acertos = parseInt(dados[0].acertos);
+        var erros = parseInt(dados[0].erros);
+        var total = acertos + erros;
+        var pct = total > 0 ? Math.round((acertos / total) * 100) : 0;
 
-    var nivel = "Iniciante";
-    if (pct >= 70) {
-      nivel = "Avançado";
-    } else if (pct >= 40) {
-      nivel = "Intermediário";
-    }
+        var nivel;
 
-    kpiClassificacao.innerHTML = "🎓 Classificação: " + nivel;
+        if (pct >= 70) {
+          nivel = "Avançado";
+        } else if (pct >= 40) {
+          nivel = "Intermediário";
+        } else {
+          nivel = "Iniciante";
+        }
 
-    // Gráfico de pizza
-    chartPizzaAE = new Chart(graficoPizzaAE, {
-      type: "pie",
-      data: {
-        labels: ["Acertos", "Erros"],
-        datasets: [{
-          data: [acertos, erros],
-          backgroundColor: [
-            "rgba(54, 162, 235, 0.6)",
-            "rgba(255, 99, 132, 0.6)"
-          ],
-          borderColor: [
-            "rgb(54, 162, 235)",
-            "rgb(255, 99, 132)"
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        plugins: { legend: { labels: { color: "white" } } }
-      }
-    });
-  });
+        kpiClassificacao.innerHTML = "🎓 Classificação: " + nivel;
+
+        // Gráfico de pizza
+        chartPizzaAE = new Chart(graficoPizzaAE, {
+          type: "pie",
+          data: {
+            labels: ["Acertos", "Erros"],
+            datasets: [{
+              data: [acertos, erros],
+              backgroundColor: [
+                "rgba(54, 162, 235, 0.6)",
+                "rgba(255, 99, 132, 0.6)"
+              ],
+              borderColor: [
+                "rgb(54, 162, 235)",
+                "rgb(255, 99, 132)"
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            plugins: { legend: { labels: { color: "white" } } }
+          }
+        });
+      });
 
     fetch("/dashboard/radar/" + idUsuario)
       .then(function (res) {
@@ -125,9 +126,9 @@
         var treino = 0, nutricao = 0, compl = 0;
 
         for (var i = 0; i < dados.length; i++) {
-          if (dados[i].area === "Treino") treino = dados[i].acertos;
-          if (dados[i].area === "Nutrição") nutricao = dados[i].acertos;
-          if (dados[i].area === "Complementar") compl = dados[i].acertos;
+          if (dados[i].area == "Treino") treino = dados[i].acertos;
+          if (dados[i].area == "Nutrição") nutricao = dados[i].acertos;
+          if (dados[i].area == "Complementar") compl = dados[i].acertos;
         }
 
         chartRadar = new Chart(graficoRadar, {
@@ -161,4 +162,5 @@
       });
   </script>
 </body>
+
 </html>
